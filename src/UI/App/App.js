@@ -7,8 +7,6 @@ const Login = AsyncComponent(() => import("../Containers/Login/Login"));
 const Folder = AsyncComponent(() => import("../Containers/Folder/Folder"));
 const NotFound = AsyncComponent(() => import("../Containers/NotFound/NotFound"));
 
-console.log('1');
-
 class App extends React.Component {
   render() {
     return (
