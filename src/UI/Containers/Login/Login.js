@@ -1,6 +1,7 @@
 import React from 'react';
-import './Login.scss';
+import { Redirect } from 'react-router';
 import SessionUser from '../../../Globals/SessionUser';
+import './Login.scss';
 
 export default class Login extends React.Component {
   constructor() {
@@ -8,6 +9,7 @@ export default class Login extends React.Component {
 
     this.state = {
       token: '',
+      userLoggedIn: false,
     };
 
     this.handleTokenChange = this.handleTokenChange.bind(this);
@@ -18,16 +20,23 @@ export default class Login extends React.Component {
     this.setState({ token: e.target.value });
   }
 
-  sendToken({ token }) {
-    SessionUser.checkUserCredential(this.state.token);
+  sendToken(e) {
+    e.preventDefault();
+    SessionUser.checkUserCredential(this.state.token)
+      .then((value) => this.setState({ userLoggedIn: value }));
   }
   
   render() {
     return (
       <div className="logon">
         <h1>Login</h1>
-        <input type="text" placeholder="Enter your pw" onChange={this.handleTokenChange} value={this.state.token} />
-        <button onClick={()=>this.sendToken(this.state)}>Go</button>
+        <form onSubmit={this.sendToken} >
+        <input type="text" placeholder="Please enter your password" onChange={this.handleTokenChange} value={this.state.token} />
+        <input type="submit" value="Go" />
+        </form>
+        { this.state.userLoggedIn &&
+          <Redirect to="/folder/root" />
+        }
       </div>
     );
   }
