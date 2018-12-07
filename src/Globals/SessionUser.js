@@ -1,3 +1,5 @@
+import API from './API';
+
 class SessionUser {
     constructor() {
         this.data = {
@@ -25,9 +27,19 @@ class SessionUser {
                 error.code = 404;
                 reject(error);
             }
-            const error = new Error("Invalid token")
-            error.code = 401;
-            reject(error);
+            API.fetch('/authenticate/simpletoken/' + apiToken).then(response => response.json()).then(response => {
+                if (response.TokenStatus === 'valid') {
+                    resolve(true);
+                } else {
+                    const error = new Error("Invalid token status");
+                    error.code = 402;
+                    reject(error);
+                };
+            }).catch(() => {
+                const error = new Error("API error");
+                error.code = 401;
+                reject(error);
+            });
         });
     }
 }
