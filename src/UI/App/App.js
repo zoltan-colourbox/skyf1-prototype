@@ -14,19 +14,19 @@ const About = AsyncComponent(() => import("../Containers/About/About"));
 class App extends React.Component {
   render() {
     return (
-      <React.Fragment>
-        <HeaderBar className={Styles.HeaderBar} />
-        <div className={Styles.Container}>
-          <Router>
-              <Switch>
-                <PublicRoute path="/" exact component={Login} />
-                <PrivateRoute path="/folder/:id" exact component={Folder} />
-                <Route path="/about" exact component={About} />
-                <Route component={NotFound} />
-              </Switch>
-          </Router>
-        </div>
-      </React.Fragment>
+      <Router>
+          <div>
+            <HeaderBar className={Styles.HeaderBar} />
+            <div className={Styles.Container}>
+                <Switch>
+                  <PublicRoute path="/" exact component={Login} />
+                  <PrivateRoute path="/folder/:id" exact component={Folder} />
+                  <Route path="/about" exact component={About} />
+                  <Route component={NotFound} />
+                </Switch>
+            </div>
+          </div>
+      </Router>
     );
   }
 }
