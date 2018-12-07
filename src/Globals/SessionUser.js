@@ -80,7 +80,7 @@ class SessionUser {
                     reject(response);
                 });
             }
-            const error = new Error("User is not logged");
+            const error = new Error("User is not logged in");
             error.code = 401;
             reject(error);
         });
