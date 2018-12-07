@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import { Route, Redirect } from 'react-router';
 import SessionUser from '../../../Globals/SessionUser';
 import './Login.scss';
 
@@ -27,6 +27,8 @@ export default class Login extends React.Component {
   }
   
   render() {
+    const { userLoggedIn } = this.state;
+
     return (
       <div className="logon">
         <h1>Login</h1>
@@ -34,9 +36,13 @@ export default class Login extends React.Component {
         <input type="text" placeholder="Please enter your password" onChange={this.handleTokenChange} value={this.state.token} />
         <input type="submit" value="Go" />
         </form>
-        { this.state.userLoggedIn &&
-          <Redirect to="/folder/root" />
-        }
+
+        <Route path="/" render={() => (
+          userLoggedIn ?
+            <Redirect to="/folder/root" />
+            : null
+        )}/>
+
       </div>
     );
   }
