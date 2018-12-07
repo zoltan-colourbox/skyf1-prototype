@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import AsyncComponent from '../Components/AsyncComponent/AsyncComponent';
-// import PrivateRoute from '../Components/AsyncComponent/AsyncComponent';
+import HeaderBar from '../Components/HeaderBar/HeaderBar';
 
 import SessionUser from '../../Globals/SessionUser';
-import './App.scss';
+import Styles from './App.scss';
 
 const Login = AsyncComponent(() => import("../Containers/Login/Login"));
 const Folder = AsyncComponent(() => import("../Containers/Folder/Folder"));
@@ -14,14 +14,19 @@ const About = AsyncComponent(() => import("../Containers/About/About"));
 class App extends React.Component {
   render() {
     return (
-      <Router>
-          <Switch>
-            <PublicRoute path="/" exact component={Login} />
-            <PrivateRoute path="/folder/:id" exact component={Folder} />
-            <Route path="/about" exact component={About} />
-            <Route component={NotFound} />
-          </Switch>
-      </Router>
+      <React.Fragment>
+        <HeaderBar className={Styles.HeaderBar} />
+        <div className={Styles.Container}>
+          <Router>
+              <Switch>
+                <PublicRoute path="/" exact component={Login} />
+                <PrivateRoute path="/folder/:id" exact component={Folder} />
+                <Route path="/about" exact component={About} />
+                <Route component={NotFound} />
+              </Switch>
+          </Router>
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -42,7 +47,7 @@ const PublicRoute = ({ component: Component, ...rest }) => (
       SessionUser.isLogged !== true
       ? <Component {...props} />
       : <Redirect to={{
-          pathname: "/",
+          pathname: "/folder/root",
           state: { from: props.location }
           }} />
   )} />

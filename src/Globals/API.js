@@ -4,6 +4,10 @@ class API {
             token: '',
             endpoint: 'https://test-api.cbx.xyz',
         };
+
+        // todo: keep session
+        this.data.token = localStorage.getItem('API.data.token');
+        console.log('Session API Token: ', this.data.token);
     }
 
     get token() {
@@ -21,9 +25,18 @@ class API {
     setToken(token) {
         if (this.isValidToken(token)) {
             this.data.token = token;
+
+            // todo: keep session
+            localStorage.setItem('API.data.token', this.data.token);
+
             return token;
         }
         return false;
+    }
+
+    clearToken() {
+        // todo: keep session
+        localStorage.setItem('API.data.token', '');
     }
 
     fetch(path, options) {

@@ -8,6 +8,12 @@ class SessionUser {
             id: 0,
             name: '',
         };
+
+        // todo: keep session
+        if (API.isValidToken(API.token)) {
+            this.data.id = 100;
+            this.data.name = 'Peter Smith';
+        }
     }
 
     /** Get */
@@ -67,6 +73,13 @@ class SessionUser {
                 reject(error);
             });
         });
+    }
+
+    logout() {
+        // doto: remove
+        this.data.id = 0;
+        this.data.name = '';
+        API.clearToken();
     }
 
     getFolders() {
