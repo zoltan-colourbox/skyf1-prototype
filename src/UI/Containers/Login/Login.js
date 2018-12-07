@@ -37,12 +37,15 @@ export default class Login extends React.Component {
         <input type="submit" value="Go" />
         </form>
 
-        <Route path="/" render={() => (
-          userLoggedIn ?
-            <Redirect to="/folder/root" />
-            : null
-        )}/>
-
+        <Route>
+          {
+            userLoggedIn
+            ?
+              <Redirect to="/folder/root" />
+            :
+              null
+          }
+        </Route>
       </div>
     );
   }

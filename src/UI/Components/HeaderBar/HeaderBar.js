@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import Styles from './HeaderBar.scss';
 import SessionUser from '../../../Globals/SessionUser';
 
@@ -8,6 +8,7 @@ export default class HeaderBar extends React.Component {
     super(props);
     this.state = {
       name: SessionUser.name,
+      isLogged: SessionUser.isLogged,
     };
 
     this.onClick = this.onClick.bind(this);
@@ -15,7 +16,10 @@ export default class HeaderBar extends React.Component {
   }
 
   userChanged(event, user) {
-    this.setState({ name: user.name });
+    this.setState({ 
+      name: user.name,
+      isLogged: user.isLogged
+    });
   }
 
   onClick() {
@@ -31,13 +35,16 @@ export default class HeaderBar extends React.Component {
   }
 
   render() {
-    return SessionUser.isLogged ? (
+    return this.state.isLogged ? (
       <div className={[this.props.className, Styles.Container].join(' ')}>
         <span>{this.state.name}</span> 
         <span> | </span>
         <button onClick={this.onClick}>Logout</button>
       </div>
-    ) : (<Redirect to="/" />);
+    ) : (
+    <Route>
+      <Redirect to="/" />
+    </Route>);
   }
 }
 

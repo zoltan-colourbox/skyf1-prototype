@@ -79,6 +79,7 @@ class SessionUser {
         // doto: remove
         this.data.id = 0;
         this.data.name = '';
+        this.events.trigger('change', this);
         API.clearToken();
     }
 
