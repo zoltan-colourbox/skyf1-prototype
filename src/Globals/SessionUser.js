@@ -35,25 +35,24 @@ class SessionUser {
     /** Event */
 
     on(...args) {
-        this.events.on.apply(this.events, args);
+        this.events.on(...args);
     }
 
     off(...args) {
-        this.events.off.apply(this.events, args);
+        this.events.off(...args);
     }
 
     /** Other */
 
     checkUserCredential(apiToken) {
         return new Promise((resolve, reject) => {
-            if (typeof apiToken !== 'string' || !(/^[a-zA-Z0-9]{40}$/.test(apiToken)) ) {
-                const error = new Error("Invalid token format")
+            if (typeof apiToken !== 'string' || !(/^[a-zA-Z0-9]{40}$/.test(apiToken))) {
+                const error = new Error('Invalid token format');
                 error.code = 404;
                 reject(error);
             }
-            API.fetch('/authenticate/simpletoken/' + apiToken).then(response => response.json()).then(response => {
+            API.fetch(`/authenticate/simpletoken/${apiToken}`).then(response => response.json()).then((response) => {
                 if (response.TokenStatus === 'valid') {
-
                     // doto: remove
                     this.data.id = 100;
                     this.data.name = 'Peter Smith';
@@ -63,12 +62,12 @@ class SessionUser {
 
                     resolve(true);
                 } else {
-                    const error = new Error("Invalid token status");
+                    const error = new Error('Invalid token status');
                     error.code = 402;
                     reject(error);
-                };
+                }
             }).catch(() => {
-                const error = new Error("API error");
+                const error = new Error('API error');
                 error.code = 401;
                 reject(error);
             });
@@ -86,15 +85,16 @@ class SessionUser {
     getFolders() {
         return new Promise((resolve, reject) => {
             if (this.isLogged) {
-                return API.fetch('/folder')
-                .then(response => response.json())
-                .then(response => {
-                    resolve(response);
-                }).catch(response => {
-                    reject(response);
-                });
+                API.fetch('/folder')
+                    .then(response => response.json())
+                    .then((response) => {
+                        resolve(response);
+                    })
+                    .catch((response) => {
+                        reject(response);
+                    });
             }
-            const error = new Error("User is not logged in");
+            const error = new Error('User is not logged in');
             error.code = 401;
             reject(error);
         });

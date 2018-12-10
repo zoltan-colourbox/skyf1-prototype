@@ -1,0 +1,36 @@
+{
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true,
+      "mocha": true
+    },
+    "globals": {
+        "window": true,
+        "console": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "indent": ["error", 4, {"ignoredNodes": ["JSXElement"]}],
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": [2, 4],
+        "import/no-unresolved": 0,
+        "class-methods-use-this": 0,
+        "max-len": 0,
+        "jsx-a11y/anchor-is-valid": 0,
+        "no-script-url": 0
+    },
+    "plugins": [
+        "react"
+    ],
+    "extends": "airbnb",
+    "settings": {
+        "import/resolver": "webpack"
+    }
+}

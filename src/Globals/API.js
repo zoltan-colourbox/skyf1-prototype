@@ -40,14 +40,14 @@ class API {
     }
 
     fetch(path, options) {
-        options = Object.assign({
+        const optionsAssigned = Object.assign({
             cache: 'no-cache',
             redirect: 'follow',
             headers: {
-                Authorization: 'CBX-SIMPLE-TOKEN Token=' + this.token,
+                Authorization: `CBX-SIMPLE-TOKEN Token=${this.token}`,
             },
         }, options);
-        return fetch(this.endpoint + path, options);
+        return fetch(this.endpoint + path, optionsAssigned);
     }
 }
 
