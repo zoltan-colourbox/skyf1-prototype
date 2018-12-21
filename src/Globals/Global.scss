@@ -1,0 +1,57 @@
+/** Colors */
+$colorMain: #47aaff;
+$colorGray: #e2e2e2;
+$colorRed: #ee5f50;
+$colorGreen: #19a54f;
+$colorText: #000000;
+
+
+/** Header */
+$headerHeight: 30px;
+
+/** Layout */
+
+@mixin ScrollContent {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+:local(.ScrollContent) {
+    @include ScrollContent;
+}
+
+:local(.Spacer) {
+    clear: both;
+    display: block;
+}
+
+/** Form */
+:local(.SubmitButton) {
+    background: $colorGreen;
+    border-color: $colorGreen;
+    color: #ffffff;
+
+    &:focus,
+    &:hover {
+        background: darken($colorGreen, 10%);
+        border-color: darken($colorGreen, 10%);
+    }
+}
+
+:local(.InlineButton) {
+    background: transparent;
+    padding: 0px;
+    margin: 0px;
+    display: inline-block;
+    border: 0px;
+    color: $colorMain;
+
+    &:focus,
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+:local(.ErrorMessage) {
+    color: $colorRed;
+}

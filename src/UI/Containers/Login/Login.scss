@@ -1,4 +1,68 @@
-input[type=text] {
-    width: 25rem;
-    margin: 0 .5rem 1rem 0;
+@import '../../../Globals/Global.scss';
+
+:local(.Container) {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: #ffffff;
+    @include ScrollContent;
+}
+
+:local(.Table) {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+:local(.Cell) {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    padding: 30px;
+}
+
+:local(.Box) {
+    margin: 0 auto;
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+}
+
+:local(.Logo) {
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+:local(.Input) {
+    display: block;
+    width: 100%;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+}
+
+:local(.ErrorMessage) {
+    text-align: left;
+    padding: 10px 20px;
+}
+
+:local(.Buttons) {
+    button[type=submit],
+    button[type=button] {
+        font-size: 16px;
+        float: left;
+        border-radius: 30px;
+        font-weight: normal;
+        padding: 10px 40px;
+    }
+
+    button[type=button] {
+        float: right;
+        padding-right: 0px;
+        padding-left: 0px;
+        font-size: 14px;
+    }
 }

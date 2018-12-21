@@ -1,33 +1,94 @@
 import EventTrigger from 'event-trigger';
 import API from './API';
 
+let userData = {
+    token: '',
+    type: 1,
+    ownerIdentifier: 0,
+    validUntil: 0,
+    name: '',
+    email: '',
+};
+
 class SessionUser {
     constructor() {
         this.events = new EventTrigger();
-        this.data = {
-            id: 0,
-            name: '',
-        };
 
-        // todo: keep session
-        if (API.isValidToken(API.token)) {
-            this.data.id = 100;
-            this.data.name = 'Peter Smith';
+        try {
+            const data = JSON.parse(localStorage.getItem('SessionUser.userData'));
+            if (data) {
+                this.setUserData(data);
+            }
+        } catch (error) {
+            console.error(error);
         }
+
+        console.log(userData);
     }
 
     /** Get */
 
     get name() {
-        return this.data.name;
+        return userData.name;
     }
 
-    get userId() {
-        return this.data.id;
+    get id() {
+        return userData.ownerIdentifier;
     }
 
-    get isLogged() {
-        return this.userId > 0;
+    get token() {
+        return userData.token;
+    }
+
+    get is() {
+        return this.id > 0;
+    }
+
+    /** Authentication */
+
+    logout() {
+        this.clearUserData();
+        this.events.trigger('logout', this);
+        this.events.trigger('change', this);
+    }
+
+    login(username, password) {
+        if (this.is) {
+            this.logout(false);
+        }
+
+        return new Promise((resolve, reject) => {
+            API.userpasshmac(username, password)
+                .then((response) => {
+                    this.setUserData(Object.assign(response, {
+                        name: username,
+                        email: username,
+                    }));
+                    this.events.trigger('login', this);
+                    this.events.trigger('change', this);
+                    resolve(response);
+                })
+                .catch((response) => {
+                    reject(response);
+                });
+        });
+    }
+
+    setUserData(data) {
+        userData = data;
+        localStorage.setItem('SessionUser.userData', JSON.stringify(userData));
+    }
+
+    clearUserData() {
+        userData = {
+            token: '',
+            type: 1,
+            ownerIdentifier: 0,
+            validUntil: 0,
+            name: '',
+            email: '',
+        };
+        localStorage.setItem('SessionUser.userData', JSON.stringify(userData));
     }
 
     /** Set */
@@ -42,62 +103,10 @@ class SessionUser {
         this.events.off(...args);
     }
 
-    /** Other */
-
-    checkUserCredential(apiToken) {
-        return new Promise((resolve, reject) => {
-            if (typeof apiToken !== 'string' || !(/^[a-zA-Z0-9]{40}$/.test(apiToken))) {
-                const error = new Error('Invalid token format');
-                error.code = 404;
-                reject(error);
-            }
-            API.fetch(`/authenticate/simpletoken/${apiToken}`).then(response => response.json()).then((response) => {
-                if (response.TokenStatus === 'valid') {
-                    // doto: remove
-                    this.data.id = 100;
-                    this.data.name = 'Peter Smith';
-
-                    API.setToken(apiToken);
-                    this.events.trigger('change', this);
-
-                    resolve(true);
-                } else {
-                    const error = new Error('Invalid token status');
-                    error.code = 402;
-                    reject(error);
-                }
-            }).catch(() => {
-                const error = new Error('API error');
-                error.code = 401;
-                reject(error);
-            });
-        });
-    }
-
-    logout() {
-        // doto: remove
-        this.data.id = 0;
-        this.data.name = '';
-        this.events.trigger('change', this);
-        API.clearToken();
-    }
+    /** Folders */
 
     getFolders() {
-        return new Promise((resolve, reject) => {
-            if (this.isLogged) {
-                API.fetch('/folder')
-                    .then(response => response.json())
-                    .then((response) => {
-                        resolve(response);
-                    })
-                    .catch((response) => {
-                        reject(response);
-                    });
-            }
-            const error = new Error('User is not logged in');
-            error.code = 401;
-            reject(error);
-        });
+        return API.fetch('/folder');
     }
 }
 

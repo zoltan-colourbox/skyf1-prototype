@@ -3,8 +3,7 @@ import {
     BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
 import AsyncComponent from '../Components/AsyncComponent/AsyncComponent';
-import HeaderBar from '../Components/HeaderBar/HeaderBar';
-
+import LogoutRedirect from '../Components/LogoutRedirect/LogoutRedirect';
 import SessionUser from '../../Globals/SessionUser';
 import Styles from './App.scss';
 
@@ -13,27 +12,29 @@ const Folder = AsyncComponent(() => import('../Containers/Folder/Folder'));
 const NotFound = AsyncComponent(() => import('../Containers/NotFound/NotFound'));
 const About = AsyncComponent(() => import('../Containers/About/About'));
 
-const App = () => (
-    <Router>
-        <div>
-            <HeaderBar />
-            <div className={Styles.Container}>
-                <Switch>
-                    <PublicRoute path="/" exact component={Login} />
-                    <PrivateRoute path="/folder/:id" exact component={Folder} />
-                    <Route path="/about" exact component={About} />
-                    <Route component={NotFound} />
-                </Switch>
-            </div>
-        </div>
-    </Router>
-);
+export default class App extends React.Component {
+    render() {
+        return (
+            <Router>
+                <div className={Styles.Container}>
+                    <Switch>
+                        <PublicRoute path="/" exact component={Login} />
+                        <PrivateRoute path="/folder/:id" exact component={Folder} />
+                        <Route path="/about" exact component={About} />
+                        <Route component={NotFound} />
+                    </Switch>
+                    <LogoutRedirect />
+                </div>
+            </Router>
+        );
+    }
+}
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props => (
-            SessionUser.isLogged === true ? (
+            SessionUser.is === true ? (
                 <Component {...props} />
             ) : (
                 <Redirect to={{
@@ -50,11 +51,11 @@ const PublicRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props => (
-            SessionUser.isLogged !== true ? (
+            SessionUser.is !== true ? (
                 <Component {...props} />
             ) : (
                 <Redirect to={{
-                    pathname: '/',
+                    pathname: '/folder/root',
                     state: { from: props.location },
                 }}
                 />
@@ -62,5 +63,3 @@ const PublicRoute = ({ component: Component, ...rest }) => (
         )}
     />
 );
-
-export default App;

@@ -1,5 +1,6 @@
 import React from 'react';
 import SessionUser from '../../../Globals/SessionUser';
+import HeaderBar from '../../Components/HeaderBar/HeaderBar';
 import './Folder.scss';
 
 export default class Folder extends React.Component {
@@ -9,22 +10,26 @@ export default class Folder extends React.Component {
         this.state = {
             folders: [],
         };
-    }
 
-    componentDidMount() {
         SessionUser.getFolders()
-            .then(folders => this.setState({ folders }));
+            .then(folders => this.setState({ folders }))
+            .catch((response) => {
+                console.error(response);
+            });
     }
 
     render() {
         const { folders } = this.state;
-        const folderNames = folders.map(folder => <p>{folder.name}</p>);
+        const folderNames = folders.map(folder => <p key={folder.id}>{folder.name}</p>);
 
         return (
-            <div className="folders">
-                <h1>Folders</h1>
-                {folderNames}
-            </div>
+            <React.Fragment>
+                <HeaderBar />
+                <div className="folders">
+                    <h1>Folders</h1>
+                    {folderNames}
+                </div>
+            </React.Fragment>
         );
     }
 }

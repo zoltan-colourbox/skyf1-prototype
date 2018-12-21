@@ -1,14 +1,12 @@
+@import '../../../Globals/Global.scss';
+
 :local(.Container) {
     position: fixed;
     width: 100%;
     left: 0;
     top: 0;
-    background: #000000;
     color: #ffffff;
     padding: 0 10px;
-}
-
-:local(.HeaderBar) {
-    height: 30px;
-    line-height: 30px;
+    background: $colorMain;
+    height: $headerHeight;
 }
