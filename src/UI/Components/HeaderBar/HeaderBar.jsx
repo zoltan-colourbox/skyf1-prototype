@@ -1,16 +1,17 @@
 import React from 'react';
 import Styles from './HeaderBar.scss';
+import MenuIcon from './Components/MenuIcon/MenuIcon';
+import NotificationIcon from './Components/NotificationIcon/NotificationIcon';
+import UserIcon from './Components/UserIcon/UserIcon';
 import SessionUser from '../../../Globals/SessionUser';
 
 export default class HeaderBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: SessionUser.name,
             isSessionUser: SessionUser.is,
         };
 
-        this.onClick = this.onClick.bind(this);
         this.userChanged = this.userChanged.bind(this);
     }
 
@@ -22,28 +23,32 @@ export default class HeaderBar extends React.Component {
         SessionUser.off('change', this.userChanged);
     }
 
-    onClick() {
-        SessionUser.logout();
-    }
-
     userChanged() {
         this.setState({
-            name: SessionUser.name,
             isSessionUser: SessionUser.is,
         });
     }
 
     render() {
-        const { isSessionUser, name } = this.state;
+        const { isSessionUser } = this.state;
         return (
             <div className={Styles.Container}>
                 {
                     isSessionUser ? (
-                        <React.Fragment>
-                            <span>{name}</span>
-                            <span> | </span>
-                            <button type="button" onClick={this.onClick}>Logout</button>
-                        </React.Fragment>
+                        <div className={Styles.Table}>
+                            <div className={Styles.Left}>
+                                <MenuIcon />
+                            </div>
+                            <div className={Styles.Center}>
+                                <a href="/folder/root" className={Styles.Logo}>
+                                    <img src="/skyfish-logo-small.svg" alt="Skyfish" />
+                                </a>
+                            </div>
+                            <div className={Styles.Right}>
+                                <NotificationIcon />
+                                <UserIcon />
+                            </div>
+                        </div>
                     ) : null
                 }
             </div>

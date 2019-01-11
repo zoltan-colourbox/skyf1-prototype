@@ -1,0 +1,50 @@
+@import '../../../../../Globals/Global.scss';
+
+$barHeight: 2px;
+$barSpacing: 3px;
+
+:local(.Container) {
+    display: inline-block;
+    width: 20px;
+    @include headerHeight();
+    position: relative;
+
+    > button {
+        outline: none;
+        position: absolute;
+        left: 0;
+        
+        top: ( $headerHeight - ( $barHeight * 3 + $barSpacing * 2 ) ) / 2;
+        @include respond-to(xs) { top: ( $headerHeightSmall - ( $barHeight * 3 + $barSpacing * 2 ) ) / 2; }
+        @include respond-to(s) { top: ( $headerHeightSmall - ( $barHeight * 3 + $barSpacing * 2 ) ) / 2; }
+
+        bottom: ( $headerHeight - ( $barHeight * 3 + $barSpacing * 2 ) ) / 2;
+        @include respond-to(xs) { bottom: ( $headerHeightSmall - ( $barHeight * 3 + $barSpacing * 2 ) ) / 2; }
+        @include respond-to(s) { bottom: ( $headerHeightSmall - ( $barHeight * 3 + $barSpacing * 2 ) ) / 2; }
+
+        width: 100%;
+        background: transparent;
+        border: none;
+        appearance: none;
+
+        &:after,
+        > span,
+        &:before {
+            content: '';
+            background: getTextColor($colorDark);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: $barHeight;
+        }
+
+        > span {
+            top: $barHeight + $barSpacing;
+        }
+
+        &:after {
+            top: $barHeight * 2 + $barSpacing * 2;
+        }
+    }
+}

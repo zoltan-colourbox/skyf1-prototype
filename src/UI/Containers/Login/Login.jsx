@@ -61,7 +61,7 @@ export default class Login extends React.Component {
                 <div className={Styles.Table}>
                     <div className={Styles.Cell}>
                         <div className={Styles.Box}>
-                            <img src="skyfish-logo-small.svg" alt="Skyfish" className={Styles.Logo} />
+                            <img src="/skyfish-logo-small.svg" alt="Skyfish" className={Styles.Logo} />
                             <h1>Log in to Skyfish</h1>
                             <p>Welcome back! Thanks for using Skyfish</p>
                             <form onSubmit={this.onSubmit}>

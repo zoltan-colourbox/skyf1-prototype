@@ -1,0 +1,39 @@
+@import '../../../../../Globals/Global.scss';
+
+$spacing: 15px;
+$spacingSmall: 5px;
+
+:local(.Container) {
+    display: inline-block;
+    width: 20px;
+    @include headerHeight();
+    position: relative;
+
+    > button {
+        outline: none;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        background: transparent;
+        border: none;
+        appearance: none;
+        padding: 0;
+        margin: 0;
+
+        > svg {
+            margin-top: $spacing;
+            font-size: $headerHeight - $spacing * 2;
+            @include respond-to(xs) {
+                margin-top: $spacingSmall;
+                font-size: $headerHeightSmall - $spacingSmall * 2;
+            }
+            @include respond-to(s) {
+                margin-top: $spacingSmall;
+                font-size: $headerHeightSmall - $spacingSmall * 2;
+            }
+
+            color: getTextColor($colorDark);
+            opacity: 0.4;
+        }
+    }
+}

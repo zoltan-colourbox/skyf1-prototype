@@ -2,6 +2,7 @@ import React from 'react';
 import {
     BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
+import '../../Globals/FontAwesome';
 import AsyncComponent from '../Components/AsyncComponent/AsyncComponent';
 import LogoutRedirect from '../Components/LogoutRedirect/LogoutRedirect';
 import SessionUser from '../../Globals/SessionUser';

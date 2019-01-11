@@ -7,6 +7,56 @@
     top: 0;
     color: #ffffff;
     padding: 0 10px;
-    background: $colorMain;
-    height: $headerHeight;
+    background: $colorDark;
+    @include headerHeight();
+}
+
+:local(.Table) {
+    display: table;
+    width: 100%;
+    @include headerHeight();
+    border-spacing: 0;
+
+    > div {
+        display: table-cell;
+        white-space: nowrap;
+        padding: 0;
+        vertical-align: middle;
+        font-size: 0px;
+
+        > * {
+            margin-right: 20px;
+            @include respond-to(xs) { margin-right: 10px; }
+            @include respond-to(s) { margin-right: 10px; }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+:local(.Left) {
+    text-align: left;
+}
+
+:local(.Center) {
+    text-align: center;
+    width: 100%;
+}
+
+:local(.Right) {
+    text-align: right;
+}
+
+:local(.Logo) {
+    > img {
+        height: 40%;
+    }
+}
+
+:local(.Bell) {
+    * {
+        fill: #ffffff;
+    }
 }

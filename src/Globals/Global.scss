@@ -1,13 +1,51 @@
 /** Colors */
-$colorMain: #47aaff;
+$colorMain: #248FD8;
 $colorGray: #e2e2e2;
 $colorRed: #ee5f50;
 $colorGreen: #19a54f;
 $colorText: #000000;
+$colorDark: #3E3E42;
 
+@function getTextColor($color) {
+    @if (lightness($color) > 50) {
+        @return #000000; // Lighter backgorund, return dark color
+    } @else {
+        @return #ffffff; // Darker background, return light color
+    }
+}
+
+/** Responsive */
+
+$break-small: 768px;
+$break-medium: 992px;
+$break-large: 1280px;
+
+@mixin respond-to($media) {
+    @if $media == xs {
+        @media only screen and (max-width: $break-small - 1) { @content; }
+    }
+    @else if $media == s {
+        @media only screen and (min-width: $break-small + 1) and (max-width: $break-medium - 1) { @content; }
+    }
+    @else if $media == m {
+        @media only screen and (min-width: $break-medium + 1) and (max-width: $break-large - 1) { @content; }
+    }
+    @else if $media == l {
+        @media only screen and (min-width: $break-large) { @content; }
+    }
+}
 
 /** Header */
-$headerHeight: 30px;
+$headerHeight: 50px;
+$headerHeightSmall: 30px;
+
+@mixin headerHeight() {
+    @include respond-to(xs) { height: $headerHeightSmall; }
+    @include respond-to(s) { height: $headerHeightSmall; }
+    @include respond-to(m) { height: $headerHeight; }
+    @include respond-to(l) { height: $headerHeight; }
+}
+
 
 /** Layout */
 
