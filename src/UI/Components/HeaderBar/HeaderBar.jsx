@@ -35,6 +35,7 @@ export default class HeaderBar extends React.Component {
     }
 
     openSideBar() {
+        console.log('open');
         this.setState({ showSideBar: true });
     }
 
@@ -50,11 +51,7 @@ export default class HeaderBar extends React.Component {
                     isSessionUser ? (
                         <div className={Styles.Table}>
                             <div className={Styles.Left}>
-                                {showSideBar ? (
-                                    <MenuIcon onClick={this.closeSideBar} />
-                                ) : (
-                                    <MenuIcon onClick={this.openSideBar} />
-                                )}
+                                <MenuIcon onClick={this.openSideBar} className={Styles.MenuIcon} />
                             </div>
                             <div className={Styles.Center}>
                                 <a href="/folder/root" className={Styles.Logo}>
@@ -72,7 +69,6 @@ export default class HeaderBar extends React.Component {
                     ReactDOM.createPortal(<SideBar
                         visible={showSideBar}
                         onClose={this.closeSideBar}
-                        headerRef={this.closeSideBar}
                     />, document.body)
                 }
             </div>

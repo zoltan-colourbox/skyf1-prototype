@@ -1,0 +1,24 @@
+@import '../../../../../Globals/Global.scss';
+
+:local(.Container) {
+    display: block;
+    padding: 0px;
+    margin: 0px;
+}
+
+:local(.Link) {
+    display: block;
+    padding: 3px 0px;
+    margin: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $colorText;
+    text-decoration: none;
+    font-size: 14px;
+
+    &:hover {
+        background: $colorMain;
+        color: getTextColor($colorMain);
+    }
+}

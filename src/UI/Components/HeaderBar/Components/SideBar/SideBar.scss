@@ -70,3 +70,34 @@
         }
     }
 }
+
+:local(.OverlayHeader) {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: $headerHeight;
+    z-index: 2;
+    background: transparent;
+    display: none;
+
+    @include respond-to(xs) { 
+        height: $headerHeightSmall;
+
+        &:local(.Visible) {
+            display: block;
+        }
+    }
+    @include respond-to(s) { 
+        height: $headerHeightSmall;
+
+        &:local(.Visible) {
+            display: block;
+        }
+    }
+    @include respond-to(m) {
+        &:local(.Visible) {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,28 @@
+@import '../../../Globals/Global.scss';
+
+:local(.Container) {
+    z-index: 1;
+    position: absolute;
+    left: $sideBarWidth;
+    top: $headerHeight;
+    right: 0px;
+    bottom: 0px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: auto;
+
+    @include respond-to(xs) {
+        top: $headerHeightSmall;
+        left: 0px;
+    }
+    @include respond-to(s) {
+        top: $headerHeightSmall;
+        left: 0px;
+    }
+    @include respond-to(m) {
+        left: $sideBarWidthSmall;
+    }
+}
+
+:local(.Content) {
+    padding: 10px 20px;
+}

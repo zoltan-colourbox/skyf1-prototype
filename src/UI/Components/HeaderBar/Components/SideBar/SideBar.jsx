@@ -2,14 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Styles from './SideBar.scss';
+import SessionUser from '../../../../../Globals/SessionUser';
+import FolderTree from '../../../FolderTree/FolderTree';
 
 export default class SideBar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            folders: [],
+        };
+
         this.container = React.createRef();
         this.onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
         this.onDocumentClick = this.onDocumentClick.bind(this);
+
+        SessionUser.getFolders()
+            .then(folders => this.setState({ folders }))
+            .catch((response) => {
+                console.error(response);
+            });
     }
 
     componentWillMount() {
@@ -23,14 +35,18 @@ export default class SideBar extends React.Component {
     }
 
     onDocumentMouseDown(event) {
-        if (!(this.container.current && this.container.current.contains(event.target))) {
-            const { onClose } = this.props;
-            onClose();
+        const { visible } = this.props;
+        if (visible) {
+            if (!(this.container.current && this.container.current.contains(event.target))) {
+                const { onClose } = this.props;
+                onClose();
+            }
         }
     }
 
     onDocumentClick(event) {
-        if (this.container.current && this.container.current.contains(event.target)) {
+        const { visible } = this.props;
+        if (visible && this.container.current && this.container.current.contains(event.target)) {
             setTimeout(() => {
                 if (this.container.current) {
                     const { onClose } = this.props;
@@ -42,14 +58,19 @@ export default class SideBar extends React.Component {
 
     render() {
         const { visible } = this.props;
+        const { folders } = this.state;
+
         return (
             <React.Fragment>
                 <div ref={this.container} className={[Styles.Container, visible ? Styles.Visible : null].join(' ')}>
-                    1
+                    <FolderTree folders={folders} />
                 </div>
                 {
                     ReactDOM.createPortal((
-                        <div className={[Styles.Overlay, visible ? Styles.Visible : null].join(' ')} />
+                        <React.Fragment>
+                            <div className={[Styles.Overlay, visible ? Styles.Visible : null].join(' ')} />
+                            <div className={[Styles.OverlayHeader, visible ? Styles.Visible : null].join(' ')} />
+                        </React.Fragment>
                     ), document.body)
                 }
             </React.Fragment>

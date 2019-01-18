@@ -55,6 +55,17 @@
     }
 }
 
+:local(.MenuIcon) {
+    display: none !important;
+
+    @include respond-to(xs) { 
+        display: inline-block !important;
+    }
+    @include respond-to(s) { 
+        display: inline-block !important;
+    }
+}
+
 :local(.Bell) {
     * {
         fill: #ffffff;
