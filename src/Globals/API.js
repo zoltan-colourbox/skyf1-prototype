@@ -29,6 +29,14 @@ class API {
         });
     }
 
+    folder() {
+        return this.fetch('/folder');
+    }
+
+    profileimage(id, size = 'small') {
+        return this.fetch(`/user/${id}/profileimage/${size}`);
+    }
+
     /**
      * Fetch data from API endpoint
      * Endpoint: /authenticate/userpasshmac

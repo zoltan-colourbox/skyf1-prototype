@@ -41,6 +41,10 @@ $spacingSmall: 5px;
             margin-left: 5px;
             top: -3px;
             position: relative;
+
+            @include respond-to(xs) { 
+                display: none;
+            }
         }
     }
 }
@@ -51,10 +55,55 @@ $spacingSmall: 5px;
     color: getTextColor($colorDark);
     top: -3px;
     position: relative;
+
+    @include respond-to(xs) { 
+        display: none;
+    }
 }
 
+:local(.ProfileImage) {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 24px;
+    position: relative;
+    top: 3px;
+    margin-top: 10px;
+
+    @include respond-to(xs) {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+    }
+    @include respond-to(s) {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+    }
+}
+
+:local(.DropDownOverlay) {
+    position: fixed;
+    left: 0;
+    top: $headerHeight;
+    right: 0;
+    bottom: 0;
+    background: $colorGray;
+    opacity: 0.6;
+    z-index: 1;
+    display: none;
+
+    @include respond-to(xs) { 
+        top: $headerHeightSmall;
+        display: block;
+    }
+    @include respond-to(s) { 
+        top: $headerHeightSmall;
+    }
+}
 
 :local(.DropDown) {
+    z-index: 2;
     position: absolute;
 
     top: $headerHeight;
@@ -110,5 +159,11 @@ $spacingSmall: 5px;
                 }
             }
         }
+    }
+
+    @include respond-to(xs) {
+        position: fixed;
+        bottom: 0px;
+        overflow-y: auto;
     }
 }

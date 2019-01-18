@@ -9,6 +9,7 @@ export default class UserIcon extends React.Component {
         super(props);
         this.state = {
             name: SessionUser.name,
+            imageUrl: SessionUser.profileImageUrl,
             showDropDown: false,
         };
 
@@ -19,6 +20,14 @@ export default class UserIcon extends React.Component {
         this.toggleDrodDown = this.toggleDrodDown.bind(this);
         this.onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
         this.onDocumentClick = this.onDocumentClick.bind(this);
+
+        if (SessionUser.profileImageUrl) {
+            const image = new Image();
+            image.onerror = () => {
+                SessionUser.updateProfileImageUrl();
+            };
+            image.src = SessionUser.profileImageUrl;
+        }
     }
 
     componentWillMount() {
@@ -53,6 +62,7 @@ export default class UserIcon extends React.Component {
     userChanged() {
         this.setState({
             name: SessionUser.name,
+            imageUrl: SessionUser.profileImageUrl,
         });
     }
 
@@ -67,47 +77,50 @@ export default class UserIcon extends React.Component {
     }
 
     render() {
-        const { showDropDown, name } = this.state;
+        const { showDropDown, name, imageUrl } = this.state;
         return (
             <div ref={this.container} className={Styles.Container}>
                 <button type="button" onClick={this.toggleDrodDown}>
-                    <FontAwesomeIcon icon="user-circle" />
+                    { imageUrl ? <div className={Styles.ProfileImage} style={{ backgroundImage: `url('${imageUrl}')` }} /> : <FontAwesomeIcon icon="user-circle" /> }
                     <span className={Styles.Name}>{name}</span>
                     <FontAwesomeIcon icon={!showDropDown ? 'chevron-down' : 'chevron-up'} />
                 </button>
                 {
                     showDropDown
-                        ? ReactDOM.createPortal(
-                            <div ref={this.dropDownContainer} className={Styles.DropDown}>
-                                <ul>
-                                    <li>
-                                        <button type="button">
-                                            <span><FontAwesomeIcon icon="user" /></span>
-                                            <span>My account</span>
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button type="button">
-                                            <span><FontAwesomeIcon icon="cog" /></span>
-                                            <span>Admin</span>
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.skyfish.com/helpcenter" target="_blank" rel="noopener noreferrer">
-                                            <span><FontAwesomeIcon icon="question-circle" /></span>
-                                            <span>Help center</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <button type="button" onClick={this.logout}>
-                                            <span><FontAwesomeIcon icon="sign-out-alt" /></span>
-                                            <span>Logout</span>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>,
-                            document.body,
-                        ) : null
+                        ? ReactDOM.createPortal((
+                            <React.Fragment>
+                                <div ref={this.dropDownContainer} className={Styles.DropDown}>
+                                    <ul>
+                                        <li>
+                                            <button type="button">
+                                                <span><FontAwesomeIcon icon="user" /></span>
+                                                <span>My account</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button">
+                                                <span><FontAwesomeIcon icon="cog" /></span>
+                                                <span>Admin</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.skyfish.com/helpcenter" target="_blank" rel="noopener noreferrer">
+                                                <span><FontAwesomeIcon icon="question-circle" /></span>
+                                                <span>Help center</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <button type="button" onClick={this.logout}>
+                                                <span><FontAwesomeIcon icon="sign-out-alt" /></span>
+                                                <span>Logout</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className={Styles.DropDownOverlay} />
+                            </React.Fragment>
+                        ),
+                        document.body) : null
                 }
             </div>
         );

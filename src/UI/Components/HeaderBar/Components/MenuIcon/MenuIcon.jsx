@@ -4,7 +4,7 @@ import Styles from './MenuIcon.scss';
 export default class MenuIcon extends React.Component {
     render() {
         return (
-            <div className={Styles.Container}>
+            <div {...this.props} className={Styles.Container}>
                 <button type="button">
                     <span />
                 </button>

@@ -8,6 +8,7 @@ let userData = {
     validUntil: 0,
     name: '',
     email: '',
+    profileImageUrl: '',
 };
 
 class SessionUser {
@@ -22,8 +23,6 @@ class SessionUser {
         } catch (error) {
             console.error(error);
         }
-
-        console.log(userData);
     }
 
     /** Get */
@@ -34,6 +33,10 @@ class SessionUser {
 
     get id() {
         return userData.ownerIdentifier;
+    }
+
+    get profileImageUrl() {
+        return userData.profileImageUrl;
     }
 
     get token() {
@@ -65,8 +68,15 @@ class SessionUser {
                         email: username,
                     }));
                     this.events.trigger('login', this);
-                    this.events.trigger('change', this);
-                    resolve(response);
+
+                    this.updateProfileImageUrl()
+                        .then(() => {
+                            resolve(response);
+                        })
+                        .catch((responseImage) => {
+                            console.error(responseImage);
+                            resolve(response);
+                        });
                 })
                 .catch((response) => {
                     reject(response);
@@ -74,9 +84,14 @@ class SessionUser {
         });
     }
 
+    getUserData() {
+        return userData;
+    }
+
     setUserData(data) {
         userData = data;
         localStorage.setItem('SessionUser.userData', JSON.stringify(userData));
+        this.events.trigger('change', this);
     }
 
     clearUserData() {
@@ -103,10 +118,33 @@ class SessionUser {
         this.events.off(...args);
     }
 
+    /* Profile / Account */
+
+    updateProfileImageUrl(size = 'small') {
+        return new Promise((resolve, reject) => {
+            this.getProfileImageUrl(size)
+                .then((responseImage) => {
+                    this.setUserData(Object.assign(this.getUserData(), {
+                        profileImageUrl: responseImage.url,
+                    }));
+                    resolve(responseImage);
+                })
+                .catch((responseImage) => {
+                    reject(responseImage);
+                });
+        });
+    }
+
+    getProfileImageUrl(size = 'small') {
+        return this.is ? API.profileimage(this.id, size) : new Promise((resolve, reject) => {
+            reject(new Error('No user id. Can\'t get profile image url.'));
+        });
+    }
+
     /** Folders */
 
     getFolders() {
-        return API.fetch('/folder');
+        return API.folder();
     }
 }
 

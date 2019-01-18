@@ -1,0 +1,72 @@
+@import '../../../../../Globals/Global.scss';
+
+:local(.Container) {
+    position: absolute;
+    left: 0;
+    top: $headerHeight;
+    bottom: 0;
+    width: $sideBarWidth;
+    background: #ffffff;
+    border-right: 2px solid $colorDark;
+    z-index: 2;
+
+    @include respond-to(xs) { 
+        min-width: $sideBarWidthSmall;
+        max-width: 100%;
+        position: fixed;
+        top: $headerHeightSmall;
+        display: none;
+        border-right: none;
+        box-shadow: 3px 3px 3px $colorGray;
+
+        &:local(.Visible) {
+            display: block;
+        }
+    }
+    @include respond-to(s) { 
+        min-width: $sideBarWidthSmall;
+        max-width: 100%;
+        position: fixed;
+        top: $headerHeightSmall;
+        display: none;
+        border-right: none;
+        box-shadow: 3px 3px 3px $colorGray;
+
+        &:local(.Visible) {
+            display: block;
+        }
+    }
+    @include respond-to(m) { 
+        width: $sideBarWidthSmall;
+    }
+}
+
+
+:local(.Overlay) {
+    position: fixed;
+    left: 0;
+    top: $headerHeight;
+    right: 0;
+    bottom: 0;
+    background: $colorGray;
+    opacity: 0.6;
+    z-index: 1;
+    display: none;
+
+    @include respond-to(xs) { 
+        top: $headerHeightSmall;
+        display: none;
+
+        &:local(.Visible) {
+            display: block;
+        }
+    }
+    @include respond-to(s) { 
+        top: $headerHeightSmall;
+        display: none;
+
+        &:local(.Visible) {
+            display: block;
+        }
+    }
+}
