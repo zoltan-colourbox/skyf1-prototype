@@ -11,14 +11,11 @@
     @include headerHeight();
 }
 
-:local(.Table) {
-    display: table;
-    width: 100%;
+:local(.Header) {
+    display: flex;
     @include headerHeight();
-    border-spacing: 0;
 
     > div {
-        display: table-cell;
         white-space: nowrap;
         padding: 0;
         vertical-align: middle;
@@ -52,6 +49,8 @@
 :local(.Logo) {
     > img {
         height: 40%;
+        position: relative;
+        top: 30%;
     }
 }
 

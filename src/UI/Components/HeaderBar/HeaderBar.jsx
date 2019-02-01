@@ -49,7 +49,7 @@ export default class HeaderBar extends React.Component {
             <div className={Styles.Container}>
                 {
                     isSessionUser ? (
-                        <div className={Styles.Table}>
+                        <div className={Styles.Header}>
                             <div className={Styles.Left}>
                                 <MenuIcon onClick={this.openSideBar} className={Styles.MenuIcon} />
                             </div>
