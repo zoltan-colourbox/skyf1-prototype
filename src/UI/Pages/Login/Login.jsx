@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
-import SessionUser from '../../../Globals/SessionUser';
+import SessionUser from 'Globals/SessionUser';
+import GlobalStyles from 'Globals/Global.scss';
 import Styles from './Login.scss';
-import GlobalStyles from '../../../Globals/Global.scss';
 
 export default class Login extends React.Component {
     constructor(props) {

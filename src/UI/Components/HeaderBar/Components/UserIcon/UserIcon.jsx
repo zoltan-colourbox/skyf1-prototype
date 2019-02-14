@@ -1,43 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Styles from './UserIcon.scss';
-import SessionUser from '../../../../../Globals/SessionUser';
 
 export default class UserIcon extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: SessionUser.name,
-            imageUrl: SessionUser.profileImageUrl,
             showDropDown: false,
         };
 
         this.container = React.createRef();
         this.dropDownContainer = React.createRef();
 
-        this.userChanged = this.userChanged.bind(this);
         this.toggleDrodDown = this.toggleDrodDown.bind(this);
         this.onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
         this.onDocumentClick = this.onDocumentClick.bind(this);
-
-        if (SessionUser.profileImageUrl) {
-            const image = new Image();
-            image.onerror = () => {
-                SessionUser.updateProfileImageUrl();
-            };
-            image.src = SessionUser.profileImageUrl;
-        }
     }
 
     componentWillMount() {
-        SessionUser.on('change', this.userChanged);
         document.addEventListener('mousedown', this.onDocumentMouseDown);
         document.addEventListener('click', this.onDocumentClick);
     }
 
     componentWillUnmount() {
-        SessionUser.off('change', this.userChanged);
         document.removeEventListener('mousedown', this.onDocumentMouseDown);
         document.removeEventListener('click', this.onDocumentClick);
     }
@@ -59,25 +46,15 @@ export default class UserIcon extends React.Component {
         }
     }
 
-    userChanged() {
-        this.setState({
-            name: SessionUser.name,
-            imageUrl: SessionUser.profileImageUrl,
-        });
-    }
-
     toggleDrodDown() {
         this.setState((state) => {
             return { showDropDown: !state.showDropDown };
         });
     }
 
-    logout() {
-        SessionUser.logout();
-    }
-
     render() {
-        const { showDropDown, name, imageUrl } = this.state;
+        const { name, imageUrl, onLogout } = this.props;
+        const { showDropDown } = this.state;
         return (
             <div ref={this.container} className={Styles.Container}>
                 <button type="button" onClick={this.toggleDrodDown}>
@@ -110,7 +87,7 @@ export default class UserIcon extends React.Component {
                                             </a>
                                         </li>
                                         <li>
-                                            <button type="button" onClick={this.logout}>
+                                            <button type="button" onClick={onLogout}>
                                                 <span><FontAwesomeIcon icon="sign-out-alt" /></span>
                                                 <span>Logout</span>
                                             </button>
@@ -126,3 +103,15 @@ export default class UserIcon extends React.Component {
         );
     }
 }
+
+UserIcon.propTypes = {
+    name: PropTypes.string,
+    imageUrl: PropTypes.string,
+    onLogout: PropTypes.func,
+};
+
+UserIcon.defaultProps = {
+    name: '',
+    imageUrl: '',
+    onLogout: () => {},
+};

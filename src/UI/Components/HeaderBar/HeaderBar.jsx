@@ -1,38 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import MenuIcon from 'Components/HeaderBar/Components/MenuIcon/MenuIcon';
+import NotificationIcon from 'Components/HeaderBar/Components/NotificationIcon/NotificationIcon';
+import UserIcon from 'Containers/HeaderBar/Components/UserIcon';
+import SideBar from 'Containers/HeaderBar/Components/SideBar';
 import Styles from './HeaderBar.scss';
-import MenuIcon from './Components/MenuIcon/MenuIcon';
-import NotificationIcon from './Components/NotificationIcon/NotificationIcon';
-import UserIcon from './Components/UserIcon/UserIcon';
-import SessionUser from '../../../Globals/SessionUser';
-import SideBar from './Components/SideBar/SideBar';
 
-class HeaderBar extends React.Component {
+export default class HeaderBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isSessionUser: SessionUser.is,
-        };
 
-        this.userChanged = this.userChanged.bind(this);
         this.openSideBar = this.openSideBar.bind(this);
         this.closeSideBar = this.closeSideBar.bind(this);
-    }
-
-    componentWillMount() {
-        SessionUser.on('change', this.userChanged);
-    }
-
-    componentWillUnmount() {
-        SessionUser.off('change', this.userChanged);
-    }
-
-    userChanged() {
-        this.setState({
-            isSessionUser: SessionUser.is,
-        });
     }
 
     openSideBar() {
@@ -46,8 +26,7 @@ class HeaderBar extends React.Component {
     }
 
     render() {
-        const { isSessionUser } = this.state;
-        const { sideBarVisibile } = this.props;
+        const { sideBarVisibile, isSessionUser } = this.props;
         return (
             <div className={Styles.Container}>
                 {
@@ -82,28 +61,11 @@ class HeaderBar extends React.Component {
 HeaderBar.propTypes = {
     setSideBarVisibility: PropTypes.func,
     sideBarVisibile: PropTypes.bool,
+    isSessionUser: PropTypes.bool,
 };
 
 HeaderBar.defaultProps = {
     setSideBarVisibility: () => {},
     sideBarVisibile: false,
+    isSessionUser: false,
 };
-
-const mapStateToProps = (state) => {
-    console.log(state);
-    return {
-        sideBarVisibile: state.SideBar.visible,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // dispatching plain actions
-        setSideBarVisibility: visible => dispatch({
-            type: 'SET_SIDEBAR_VISIBLE',
-            visible,
-        }),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderBar);

@@ -1,27 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import FolderTree from 'Components/FolderTree/FolderTree';
 import Styles from './SideBar.scss';
-import SessionUser from '../../../../../Globals/SessionUser';
-import FolderTree from '../../../FolderTree/FolderTree';
 
 export default class SideBar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            folders: [],
-        };
-
         this.container = React.createRef();
         this.onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
         this.onDocumentClick = this.onDocumentClick.bind(this);
-
-        SessionUser.getFolders()
-            .then(folders => this.setState({ folders }))
-            .catch((response) => {
-                console.error(response);
-            });
     }
 
     componentWillMount() {
@@ -57,8 +46,7 @@ export default class SideBar extends React.Component {
     }
 
     render() {
-        const { visible } = this.props;
-        const { folders } = this.state;
+        const { visible, folders } = this.props;
 
         return (
             <React.Fragment>
@@ -81,4 +69,9 @@ export default class SideBar extends React.Component {
 SideBar.propTypes = {
     visible: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
+    folders: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+};
+
+SideBar.defaultProps = {
+    folders: [],
 };

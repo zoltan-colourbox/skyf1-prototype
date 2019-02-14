@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Route, Redirect,
 } from 'react-router-dom';
-import SessionUser from '../../../Globals/SessionUser';
+import SessionUser from 'Globals/SessionUser';
 
 export default class LogoutRedirect extends React.PureComponent {
     constructor(props) {

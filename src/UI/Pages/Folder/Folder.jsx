@@ -1,6 +1,6 @@
 import React from 'react';
-import HeaderBar from '../../Components/HeaderBar/HeaderBar';
-import Content from '../../Components/Content/Content';
+import HeaderBar from 'Containers/HeaderBar/HeaderBar';
+import Content from 'Components/Content/Content';
 import './Folder.scss';
 
 export default class Folder extends React.Component {

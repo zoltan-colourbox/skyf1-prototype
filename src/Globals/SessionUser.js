@@ -165,3 +165,22 @@ window.globalSessionUser.checkUserCredential('e1d23c94654bac61b898a74d45e46f73d2
 */
 
 export default window.globalSessionUser;
+
+/*
+if (SessionUser.profileImageUrl) {
+    const image = new Image();
+    image.onerror = () => {
+        SessionUser.updateProfileImageUrl();
+    };
+    image.src = SessionUser.profileImageUrl;
+}
+*/
+
+
+/*
+SessionUser.getFolders()
+.then(folders => this.setState({ folders }))
+.catch((response) => {
+    console.error(response);
+});
+*/

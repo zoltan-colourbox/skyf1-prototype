@@ -2,15 +2,15 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import Reducers from './Reducers/Reducers';
+import Reducers from 'Reducers/Reducers';
 import './index.scss';
-import App from './UI/App/App';
-import * as serviceWorker from './PWA/serviceWorker';
+import App from 'App/App';
+import * as serviceWorker from 'PWA/serviceWorker';
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
     Reducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }),
 );
 /* eslint-enable */
 

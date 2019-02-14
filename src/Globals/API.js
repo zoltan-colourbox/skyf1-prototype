@@ -1,5 +1,5 @@
 import hmacsha1 from 'crypto-js/hmac-sha1';
-import DateTime from '../Classes/DateTime';
+import DateTime from 'Classes/DateTime';
 import Config from './Config';
 import SessionUser from './SessionUser';
 
