@@ -2,7 +2,7 @@ import { createAPI } from 'Factories/API';
 
 import {
     getEmptyUserData,
-} from 'Globals/SessionUser_';
+} from 'Globals/SessionUser';
 
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 function requestLogin() {

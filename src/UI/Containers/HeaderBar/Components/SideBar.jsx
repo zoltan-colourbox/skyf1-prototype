@@ -26,7 +26,6 @@ class SideBarContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         folders: state.folders.folders,
     };

@@ -3,7 +3,6 @@ import Login from 'Pages/Login/Login';
 import { doLogin, setLoginError } from 'Actions/SessionUser';
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         isFetching: state.sessionUser.isFetching,
         isError: state.sessionUser.isError,

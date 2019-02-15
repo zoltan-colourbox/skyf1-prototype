@@ -3,7 +3,7 @@ import {
     getStoredUserData,
     getEmptyUserData,
     clearStoredUserData,
-} from 'Globals/SessionUser_';
+} from 'Globals/SessionUser';
 
 import {
     LOGOUT_USER,

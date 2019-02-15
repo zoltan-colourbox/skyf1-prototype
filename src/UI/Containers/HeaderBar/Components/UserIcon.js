@@ -3,7 +3,6 @@ import UserIcon from 'Components/HeaderBar/Components/UserIcon/UserIcon';
 import { doLogout } from 'Actions/SessionUser';
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         name: state.sessionUser.userData.name,
         imageUrl: state.sessionUser.userData.profileImageUrl,

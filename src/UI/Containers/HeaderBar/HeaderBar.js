@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import HeaderBar from 'Components/HeaderBar/HeaderBar';
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         sideBarVisibile: state.sideBar.visible,
         isSessionUser: !!state.sessionUser.userData.token,
