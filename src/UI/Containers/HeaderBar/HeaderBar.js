@@ -4,8 +4,8 @@ import HeaderBar from 'Components/HeaderBar/HeaderBar';
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        sideBarVisibile: state.SideBar.visible,
-        isSessionUser: !!state.SessionUser.token,
+        sideBarVisibile: state.sideBar.visible,
+        isSessionUser: !!state.sessionUser.token,
     };
 };
 

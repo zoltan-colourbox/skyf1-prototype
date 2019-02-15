@@ -4,8 +4,8 @@ import UserIcon from 'Components/HeaderBar/Components/UserIcon/UserIcon';
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        name: state.SessionUser.name,
-        imageUrl: state.SessionUser.profileImageUrl,
+        name: state.sessionUser.name,
+        imageUrl: state.sessionUser.profileImageUrl,
     };
 };
 

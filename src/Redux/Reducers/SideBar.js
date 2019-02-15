@@ -1,4 +1,4 @@
-const SideBar = (state = { visible: false }, action) => {
+const sideBar = (state = { visible: false }, action) => {
     switch (action.type) {
     case 'SET_SIDEBAR_VISIBLE':
         const nextState = Object.assign({}, state); // eslint-disable-line no-case-declarations
@@ -9,4 +9,4 @@ const SideBar = (state = { visible: false }, action) => {
     }
 };
 
-export default SideBar;
+export default sideBar;

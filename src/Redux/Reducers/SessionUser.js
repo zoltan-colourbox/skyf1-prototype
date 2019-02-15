@@ -1,6 +1,6 @@
 import { getStoredUserData, getEmptyUserData, clearStoredUserData } from 'Globals/SessionUser_';
 
-const SessionUser = (state = getStoredUserData(), action) => {
+const sessionUser = (state = getStoredUserData(), action) => {
     switch (action.type) {
     case 'LOGOUT':
         clearStoredUserData();
@@ -10,4 +10,4 @@ const SessionUser = (state = getStoredUserData(), action) => {
     }
 };
 
-export default SessionUser;
+export default sessionUser;
