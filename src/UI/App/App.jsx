@@ -2,13 +2,14 @@ import React from 'react';
 import {
     BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import 'Globals/FontAwesome';
-import SessionUser from 'Globals/SessionUser';
+import { connect } from 'react-redux';
 import AsyncComponent from 'Components/AsyncComponent/AsyncComponent';
 import LogoutRedirect from 'Components/LogoutRedirect/LogoutRedirect';
 import Styles from './App.scss';
 
-const Login = AsyncComponent(() => import('Pages/Login/Login'));
+const Login = AsyncComponent(() => import('Containers/Login/Login'));
 const Folder = AsyncComponent(() => import('Pages/Folder/Folder'));
 const NotFound = AsyncComponent(() => import('Pages/NotFound/NotFound'));
 const About = AsyncComponent(() => import('Pages/About/About'));
@@ -19,8 +20,8 @@ export default class App extends React.Component {
             <Router>
                 <div className={Styles.Container}>
                     <Switch>
-                        <PublicRoute path="/" exact component={Login} />
-                        <PrivateRoute path="/folder/:id" exact component={Folder} />
+                        <PublicRouteMapped path="/" exact component={Login} />
+                        <PrivateRouteMapped path="/folder/:id" exact component={Folder} />
                         <Route path="/about" exact component={About} />
                         <Route component={NotFound} />
                     </Switch>
@@ -35,7 +36,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props => (
-            SessionUser.is === true ? (
+            rest.isSessionUser ? (
                 <Component {...props} />
             ) : (
                 <Redirect to={{
@@ -48,11 +49,30 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     />
 );
 
+PrivateRoute.propTypes = {
+    isSessionUser: PropTypes.bool,
+};
+
+PrivateRoute.defaultProps = {
+    isSessionUser: false,
+};
+
+const mapStateToProps = (state) => {
+    return {
+        isSessionUser: !!state.sessionUser.userData.token,
+    };
+};
+
+const PrivateRouteMapped = connect(
+    mapStateToProps,
+)(PrivateRoute);
+
+
 const PublicRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props => (
-            SessionUser.is !== true ? (
+            rest.isSessionUser !== true ? (
                 <Component {...props} />
             ) : (
                 <Redirect to={{
@@ -64,3 +84,15 @@ const PublicRoute = ({ component: Component, ...rest }) => (
         )}
     />
 );
+
+PrivateRoute.propTypes = {
+    isSessionUser: PropTypes.bool,
+};
+
+PrivateRoute.defaultProps = {
+    isSessionUser: false,
+};
+
+const PublicRouteMapped = connect(
+    mapStateToProps,
+)(PublicRoute);

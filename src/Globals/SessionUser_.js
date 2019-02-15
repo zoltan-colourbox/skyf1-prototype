@@ -13,6 +13,8 @@ export const getStoredUserData = () => JSON.parse(localStorage.getItem('SessionU
 
 export const clearStoredUserData = () => localStorage.setItem('SessionUser.userData', JSON.stringify(getEmptyUserData()));
 
+export const setStoredUserData = userData => localStorage.setItem('SessionUser.userData', JSON.stringify(userData));
+
 export default {
     getStoredUserData,
     getEmptyUserData,

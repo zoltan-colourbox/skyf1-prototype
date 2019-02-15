@@ -10,6 +10,7 @@ function folders(state = {
     isFetching: false,
     didInvalidate: false,
     folders: [],
+    lastUpdated: null,
 }, action) {
     switch (action.type) {
     case SELECT_FOLDER:

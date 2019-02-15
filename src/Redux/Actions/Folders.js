@@ -31,7 +31,7 @@ export function fetchFolders(folder) {
 
         dispatch(requestFolders(folder));
 
-        createAPI(sessionUser.token).folder()
+        createAPI(sessionUser.userData.token).folder()
             .then(json => dispatch(receiveFolders(json)));
     };
 }

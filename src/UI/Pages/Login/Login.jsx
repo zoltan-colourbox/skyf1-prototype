@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
-import SessionUser from 'Globals/SessionUser';
+import PropTypes from 'prop-types';
 import GlobalStyles from 'Globals/Global.scss';
 import Styles from './Login.scss';
 
@@ -11,9 +11,6 @@ export default class Login extends React.Component {
         this.state = {
             email: '',
             password: '',
-            isSessionUser: SessionUser.is,
-            error: false,
-            loading: false,
         };
 
         this.onChange = this.onChange.bind(this);
@@ -21,40 +18,31 @@ export default class Login extends React.Component {
     }
 
     onChange(event) {
+        const { onChange } = this.props;
+        onChange();
         this.setState({
             [event.target.id]: event.target.value,
-            error: false,
         });
     }
 
     onSubmit(event) {
         event.preventDefault();
 
-        this.setState({ error: false });
-
-        const { email, password, loading } = this.state;
-        if (!loading) {
-            this.setState({ loading: true });
-            SessionUser.login(email, password)
-                .then(() => {
-                    this.setState({
-                        isSessionUser: SessionUser.is,
-                        loading: false,
-                    });
-                })
-                .catch(() => {
-                    this.setState({
-                        error: true,
-                        loading: false,
-                    });
-                });
+        const { email, password } = this.state;
+        const { isFetching } = this.props;
+        if (!isFetching) {
+            const { onSubmit } = this.props;
+            onSubmit(email, password);
         }
     }
 
     render() {
         const {
-            email, password, isSessionUser, error,
+            email, password,
         } = this.state;
+        const {
+            isError, isSessionUser,
+        } = this.props;
 
         return (
             <div className={Styles.Container}>
@@ -68,7 +56,7 @@ export default class Login extends React.Component {
                                 <input type="text" id="email" className={Styles.Input} placeholder="Email address" onChange={this.onChange} value={email} />
                                 <input type="password" id="password" className={Styles.Input} placeholder="Password" onChange={this.onChange} value={password} />
                                 {
-                                    error ? (
+                                    isError ? (
                                         <p className={[Styles.ErrorMessage, GlobalStyles.ErrorMessage].join(' ')}>Wrong username or password</p>
                                     ) : null
                                 }
@@ -92,3 +80,19 @@ export default class Login extends React.Component {
         );
     }
 }
+
+Login.propTypes = {
+    isFetching: PropTypes.bool,
+    isError: PropTypes.bool,
+    isSessionUser: PropTypes.bool,
+    onSubmit: PropTypes.func,
+    onChange: PropTypes.func,
+};
+
+Login.defaultProps = {
+    isFetching: false,
+    isError: false,
+    isSessionUser: false,
+    onSubmit: () => {},
+    onChange: () => {},
+};

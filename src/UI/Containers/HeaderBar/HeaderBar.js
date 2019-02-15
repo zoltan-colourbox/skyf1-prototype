@@ -5,7 +5,7 @@ const mapStateToProps = (state) => {
     console.log(state);
     return {
         sideBarVisibile: state.sideBar.visible,
-        isSessionUser: !!state.sessionUser.token,
+        isSessionUser: !!state.sessionUser.userData.token,
     };
 };
 

@@ -8,13 +8,16 @@ import './index.scss';
 import App from 'App/App';
 import * as serviceWorker from 'PWA/serviceWorker';
 
+const middlewares = [applyMiddleware(thunk)];
+
 /* eslint-disable no-underscore-dangle */
+if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+    middlewares.push(window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }));
+}
+
 const store = createStore(
     Reducers,
-    compose(
-        applyMiddleware(thunk),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }),
-    ),
+    compose(...middlewares),
 );
 /* eslint-enable */
 
