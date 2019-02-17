@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import FolderTree from 'Components/FolderTree/FolderTree';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Styles from './SideBar.scss';
 
 export default class SideBar extends React.Component {
@@ -9,6 +10,7 @@ export default class SideBar extends React.Component {
         super(props);
 
         this.container = React.createRef();
+        this.reloadButton = React.createRef();
         this.onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
         this.onDocumentClick = this.onDocumentClick.bind(this);
     }
@@ -35,7 +37,12 @@ export default class SideBar extends React.Component {
 
     onDocumentClick(event) {
         const { visible } = this.props;
-        if (visible && this.container.current && this.container.current.contains(event.target)) {
+        if (visible
+            && this.container.current
+            && this.container.current.contains(event.target)
+            && this.reloadButton.current
+            && !this.reloadButton.current.contains(event.target)
+        ) {
             setTimeout(() => {
                 if (this.container.current) {
                     const { onClose } = this.props;
@@ -46,12 +53,18 @@ export default class SideBar extends React.Component {
     }
 
     render() {
-        const { visible, folders } = this.props;
-
+        const {
+            visible, folders, onReload, isReloading, folderId,
+        } = this.props;
         return (
             <React.Fragment>
                 <div ref={this.container} className={[Styles.Container, visible ? Styles.Visible : null].join(' ')}>
-                    <FolderTree folders={folders} />
+                    <div className={[Styles.Reload].join(' ')}>
+                        <button ref={this.reloadButton} className={[Styles.ReloadButton, isReloading ? Styles.IsReloading : null].join(' ')} type="button" onClick={onReload}>
+                            <FontAwesomeIcon icon="sync-alt" />
+                        </button>
+                    </div>
+                    <FolderTree folders={folders} folderId={folderId} className={Styles.FolderTree} />
                 </div>
                 {
                     ReactDOM.createPortal((
@@ -69,9 +82,15 @@ export default class SideBar extends React.Component {
 SideBar.propTypes = {
     visible: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    folders: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+    folders: PropTypes.array, // eslint-disable-line react/forbid-prop-
+    onReload: PropTypes.func,
+    isReloading: PropTypes.bool,
+    folderId: PropTypes.number,
 };
 
 SideBar.defaultProps = {
     folders: [],
+    onReload: () => {},
+    isReloading: false,
+    folderId: null,
 };

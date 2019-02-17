@@ -9,7 +9,7 @@ import PrivateRoute from 'Containers/PrivateRoute/PrivateRoute';
 import Styles from './App.scss';
 
 const Login = AsyncComponent(() => import('Containers/Login/Login'));
-const Folder = AsyncComponent(() => import('Pages/Folder/Folder'));
+const Folder = AsyncComponent(() => import('Containers/Folder/Folder'));
 const NotFound = AsyncComponent(() => import('Pages/NotFound/NotFound'));
 const About = AsyncComponent(() => import('Pages/About/About'));
 

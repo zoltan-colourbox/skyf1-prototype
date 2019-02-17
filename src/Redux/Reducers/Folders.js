@@ -1,6 +1,5 @@
 import {
     SELECT_FOLDER,
-    INVALIDATE_FOLDERS,
     REQUEST_FOLDERS,
     RECEIVE_FOLDERS,
 } from 'Actions/Folders';
@@ -14,10 +13,8 @@ function folders(state = {
 }, action) {
     switch (action.type) {
     case SELECT_FOLDER:
-        return action.folder;
-    case INVALIDATE_FOLDERS:
         return Object.assign({}, state, {
-            didInvalidate: true,
+            selectedFolder: action.folderId,
         });
     case REQUEST_FOLDERS:
         return Object.assign({}, state, {

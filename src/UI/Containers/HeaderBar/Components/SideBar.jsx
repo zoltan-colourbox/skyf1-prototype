@@ -9,14 +9,6 @@ class SideBarContainer extends React.Component {
         dispatch(fetchFolders(0));
     }
 
-    componentWillUnmount() {
-
-    }
-
-    handleChange() {
-
-    }
-
     render() {
         const { folders } = this.props;
         // ... and renders the wrapped component with the fresh data!
@@ -28,7 +20,17 @@ class SideBarContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         folders: state.folders.folders,
+        folderId: state.folders.selectedFolder,
+        isReloading: state.folders.isFetching,
     };
 };
 
-export default connect(mapStateToProps)(SideBarContainer);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // dispatching plain actions
+        onReload: () => dispatch(fetchFolders()),
+        dispatch,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBarContainer);

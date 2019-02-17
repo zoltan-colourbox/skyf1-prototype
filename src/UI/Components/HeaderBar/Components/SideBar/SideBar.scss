@@ -101,3 +101,27 @@
         }
     }
 }
+
+:local(.Reload) {
+    text-align: right;
+}
+
+:local(.ReloadButton) {
+    display: inline-block;
+    border: 0px;
+    background: transparent;
+    color: $colorMain;
+}
+
+:local(.IsReloading) {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0%  {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}   
+}
+
+:local(.FolderTree) {
+    padding-left: 0;
+}

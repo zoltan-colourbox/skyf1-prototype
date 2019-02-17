@@ -2,14 +2,14 @@
 
 :local(.Container) {
     display: block;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 :local(.Link) {
     display: block;
-    padding: 3px 0px;
-    margin: 0px;
+    padding: 3px 10px;
+    margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -21,4 +21,9 @@
         background: $colorMain;
         color: getTextColor($colorMain);
     }
+}
+
+:local(.Active) {
+    background: $colorMain;
+    color: getTextColor($colorMain);
 }

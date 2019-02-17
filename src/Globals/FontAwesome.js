@@ -1,6 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faBell, faUser, faChevronDown, faChevronUp,
+    faBell, faUser, faChevronDown, faChevronUp, faSyncAlt,
     faSignOutAlt, faQuestionCircle, faCog, faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,3 +12,4 @@ library.add(faSignOutAlt);
 library.add(faQuestionCircle);
 library.add(faCog);
 library.add(faUserCircle);
+library.add(faSyncAlt);
