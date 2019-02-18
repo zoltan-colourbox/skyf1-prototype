@@ -7,6 +7,7 @@ import Reducers from 'Reducers/Reducers';
 import './index.scss';
 import App from 'App/App';
 import * as serviceWorker from 'PWA/serviceWorker';
+import NotifyInstall from 'PWA/Components/NotifyInstall/NotifyInstall';
 
 const middlewares = [applyMiddleware(thunk)];
 
@@ -24,6 +25,7 @@ const store = createStore(
 render(
     <Provider store={store}>
         <App />
+        <NotifyInstall />
     </Provider>,
     document.getElementById('root'),
 );
