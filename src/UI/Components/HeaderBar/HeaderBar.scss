@@ -24,7 +24,6 @@
         > * {
             margin-right: 20px;
             @include respond-to(xs) { margin-right: 10px; }
-            @include respond-to(s) { margin-right: 10px; }
 
             &:last-child {
                 margin-right: 0;

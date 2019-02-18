@@ -37,7 +37,7 @@ $break-large: 1280px;
 
 /** Header */
 $headerHeight: 50px;
-$headerHeightSmall: 30px;
+$headerHeightSmall: 50px;
 
 @mixin headerHeight() {
     @include respond-to(xs) { height: $headerHeightSmall; }

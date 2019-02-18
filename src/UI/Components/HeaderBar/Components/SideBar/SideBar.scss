@@ -112,7 +112,7 @@
 :local(.Title) {
     flex: 1;
     padding: 0 10px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -125,6 +125,7 @@
     border: 0px;
     background: transparent;
     color: $colorMain;
+    font-size: 16px;
 }
 
 :local(.IsReloading) {
