@@ -2,7 +2,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faBell, faUser, faChevronDown, faChevronUp, faSyncAlt,
     faSignOutAlt, faQuestionCircle, faCog, faUserCircle,
-    faFolder, faFolderOpen, faCaretRight,
+    faFolder, faFolderOpen, faCaretRight, faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faBell);
@@ -17,3 +17,4 @@ library.add(faSyncAlt);
 library.add(faFolder);
 library.add(faFolderOpen);
 library.add(faCaretRight);
+library.add(faTimes);

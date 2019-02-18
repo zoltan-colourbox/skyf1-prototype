@@ -1,0 +1,46 @@
+@import 'Globals/Global.scss';
+
+:local(.Container) {
+    position: fixed;
+    width: 320px;
+    max-width: 100%;
+    background: #ffffff;
+    z-index: 1000000;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    text-align: center;
+    box-shadow: 0 0 15px 0 $colorDark;
+    position: relative;
+}
+
+:local(.Text) {
+    padding: 20px;
+    font-size: 18px;
+    font-weight: normal;
+
+    > img {
+        height: 64px;
+        margin-right: 10px;
+    }
+}
+
+:local(.Button) {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    display: block;
+    width: 100%;
+    background: $colorMain;
+}
+
+:local(.Close) {
+    background: transparent;
+    appearance: none;
+    border: none;
+    font-size: 18px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
