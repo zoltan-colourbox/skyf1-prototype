@@ -4,6 +4,29 @@ import {
     getEmptyUserData,
 } from 'Globals/SessionUser';
 
+
+export const UPDATE_PROFILE_IMAGE = 'UPDATE_PROFILE_IMAGE';
+function setProfileImageUrl(url) {
+    return {
+        type: UPDATE_PROFILE_IMAGE,
+        url,
+    };
+}
+
+export function updateProfileImage(size = 'small') {
+    return (dispatch, getState) => {
+        const { sessionUser } = getState();
+
+        createAPI(sessionUser.userData.token).profileimage(sessionUser.userData.ownerIdentifier, size)
+            .then((json) => {
+                dispatch(setProfileImageUrl(json.url));
+            })
+            .catch(() => {
+                dispatch(setProfileImageUrl(''));
+            });
+    };
+}
+
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 function requestLogin() {
     return {
@@ -40,6 +63,7 @@ export function doLogin(username, password) {
                     email: username,
                 });
                 dispatch(receiveLogin(userData));
+                dispatch(updateProfileImage());
             }).catch(() => {
                 dispatch(receiveLogin(getEmptyUserData()));
                 dispatch(setLoginError(true));

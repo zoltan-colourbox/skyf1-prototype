@@ -102,6 +102,20 @@
     }
 }
 
+:local(.Top) {
+    display: flex;
+    height: 27px;
+    align-items: center;
+    border-bottom: 1px solid $colorGray;
+}
+
+:local(.Title) {
+    flex: 1;
+    padding: 0 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 :local(.Reload) {
     text-align: right;
 }

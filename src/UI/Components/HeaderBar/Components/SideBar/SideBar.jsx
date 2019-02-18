@@ -10,19 +10,15 @@ export default class SideBar extends React.Component {
         super(props);
 
         this.container = React.createRef();
-        this.reloadButton = React.createRef();
         this.onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
-        this.onDocumentClick = this.onDocumentClick.bind(this);
     }
 
     componentWillMount() {
         document.addEventListener('mousedown', this.onDocumentMouseDown);
-        document.addEventListener('click', this.onDocumentClick);
     }
 
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.onDocumentMouseDown);
-        document.removeEventListener('click', this.onDocumentClick);
     }
 
     onDocumentMouseDown(event) {
@@ -35,23 +31,6 @@ export default class SideBar extends React.Component {
         }
     }
 
-    onDocumentClick(event) {
-        const { visible } = this.props;
-        if (visible
-            && this.container.current
-            && this.container.current.contains(event.target)
-            && this.reloadButton.current
-            && !this.reloadButton.current.contains(event.target)
-        ) {
-            setTimeout(() => {
-                if (this.container.current) {
-                    const { onClose } = this.props;
-                    onClose();
-                }
-            }, 100);
-        }
-    }
-
     render() {
         const {
             visible, folders, onReload, isReloading, folderId,
@@ -59,10 +38,15 @@ export default class SideBar extends React.Component {
         return (
             <React.Fragment>
                 <div ref={this.container} className={[Styles.Container, visible ? Styles.Visible : null].join(' ')}>
-                    <div className={[Styles.Reload].join(' ')}>
-                        <button ref={this.reloadButton} className={[Styles.ReloadButton, isReloading ? Styles.IsReloading : null].join(' ')} type="button" onClick={onReload}>
-                            <FontAwesomeIcon icon="sync-alt" />
-                        </button>
+                    <div className={[Styles.Top].join(' ')}>
+                        <div className={[Styles.Title].join(' ')}>
+                            Folders
+                        </div>
+                        <div className={[Styles.Reload].join(' ')}>
+                            <button className={[Styles.ReloadButton, isReloading ? Styles.IsReloading : null].join(' ')} type="button" onClick={onReload}>
+                                <FontAwesomeIcon icon="sync-alt" />
+                            </button>
+                        </div>
                     </div>
                     <FolderTree folders={folders} folderId={folderId} className={Styles.FolderTree} />
                 </div>

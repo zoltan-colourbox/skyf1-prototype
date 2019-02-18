@@ -36,6 +36,11 @@
 :local(.Icon) {
     display: inline-block;
     margin-right: 5px;
+    color: lighten($colorDark, 30%);
+}
+
+:local(.IconActive) {
+    color: getTextColor($colorMain);
 }
 
 :local(.ArrowIcon) {
@@ -44,6 +49,7 @@
     background: transparent;
     display: inline-block;
     padding: 0 5px;
+    color: $colorDark;
 
     > svg {
         transition: transform 0.1s linear;

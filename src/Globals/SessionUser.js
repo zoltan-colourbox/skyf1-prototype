@@ -15,10 +15,10 @@ export const clearStoredUserData = () => localStorage.setItem('SessionUser.userD
 
 export const setStoredUserData = userData => localStorage.setItem('SessionUser.userData', JSON.stringify(userData));
 
-export default {
-    getStoredUserData,
-    getEmptyUserData,
-    clearStoredUserData,
+export const setStoredUserDataProfileImageUrl = (url) => {
+    const userData = getStoredUserData();
+    userData.profileImageUrl = url;
+    setStoredUserData(userData);
 };
 
 /* Profile / Account

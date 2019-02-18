@@ -8,7 +8,14 @@ import FolderTree from '../../FolderTree';
 export default class FolderTreeLi extends React.Component {
     constructor(props) {
         super(props);
+
+        this.onClick = this.onClick.bind(this);
         this.toggleCollapse = this.toggleCollapse.bind(this);
+    }
+
+    onClick() {
+        const { onClick } = this.props;
+        onClick();
     }
 
     isActive() {
@@ -20,9 +27,9 @@ export default class FolderTreeLi extends React.Component {
 
     toggleCollapse(event) {
         event.preventDefault();
+        event.stopPropagation();
         const { setCollapse, folder, collapsed } = this.props;
         setCollapse(folder.id, !collapsed);
-        // this.setState((state) => { return { collapsed: !state.collapsed }; });
     }
 
     render() {
@@ -35,6 +42,7 @@ export default class FolderTreeLi extends React.Component {
                 <Link
                     style={{ paddingLeft: `${parents * 10}px` }}
                     className={[Styles.Link, this.isActive() ? Styles.Active : null].join(' ')}
+                    onClick={this.onClick}
                     to={`/folder/${folder.id}`}
                 >
                     <button
@@ -44,7 +52,7 @@ export default class FolderTreeLi extends React.Component {
                     >
                         <FontAwesomeIcon icon="caret-right" />
                     </button>
-                    <FontAwesomeIcon className={Styles.Icon} icon={!this.isActive() ? 'folder' : 'folder-open'} />
+                    <FontAwesomeIcon className={[Styles.Icon, this.isActive() ? Styles.IconActive : null].join(' ')} icon={!this.isActive() ? 'folder' : 'folder-open'} />
                     <span>{folder.name}</span>
                 </Link>
                 {collapsed ? (
@@ -63,6 +71,7 @@ FolderTreeLi.propTypes = {
     parents: PropTypes.number,
     collapsed: PropTypes.bool,
     setCollapse: PropTypes.func,
+    onClick: PropTypes.func,
 };
 
 FolderTreeLi.defaultProps = {
@@ -72,4 +81,5 @@ FolderTreeLi.defaultProps = {
     parents: 0,
     collapsed: false,
     setCollapse: () => {},
+    onClick: () => {},
 };

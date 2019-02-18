@@ -3,6 +3,7 @@ import {
     getStoredUserData,
     getEmptyUserData,
     clearStoredUserData,
+    setStoredUserDataProfileImageUrl,
 } from 'Globals/SessionUser';
 
 import {
@@ -10,6 +11,7 @@ import {
     RECEIVE_LOGIN,
     REQUEST_LOGIN,
     SET_REQUEST_LOGIN_ERROR,
+    UPDATE_PROFILE_IMAGE,
 } from 'Actions/SessionUser';
 
 const sessionUser = (state = {
@@ -38,6 +40,13 @@ const sessionUser = (state = {
     case SET_REQUEST_LOGIN_ERROR:
         return Object.assign({}, state, {
             isError: action.isError,
+        });
+    case UPDATE_PROFILE_IMAGE:
+        setStoredUserDataProfileImageUrl(action.url);
+        return Object.assign({}, state, {
+            userData: Object.assign({}, state.userData, {
+                profileImageUrl: action.url,
+            }),
         });
     default:
         return state;

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import HeaderBar from 'Components/HeaderBar/HeaderBar';
+import { showSideBar, hideSideBar } from 'Actions/SideBar';
 
 const mapStateToProps = (state) => {
     return {
@@ -11,10 +12,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // dispatching plain actions
-        setSideBarVisibility: visible => dispatch({
-            type: 'SET_SIDEBAR_VISIBLE',
-            visible,
-        }),
+        setSideBarVisibility: visible => dispatch(visible ? showSideBar() : hideSideBar()),
     };
 };
 

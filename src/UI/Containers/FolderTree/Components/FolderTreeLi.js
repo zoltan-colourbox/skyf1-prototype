@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import FolderTreeLi from 'Components/FolderTree/Components/FolderTreeLi/FolderTreeLi';
 import { collapseFolder } from 'Actions/Folders';
+import { hideSideBar } from 'Actions/SideBar';
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -11,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setCollapse: (folderId, collapsed) => dispatch(collapseFolder(folderId, collapsed)),
+        onClick: () => dispatch(hideSideBar()),
     };
 };
 
