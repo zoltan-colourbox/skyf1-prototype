@@ -6,7 +6,7 @@ import FolderTreeLi from './Components/FolderTreeLi/FolderTreeLi';
 export default class FolderTree extends React.Component {
     render() {
         const {
-            className, folders, parentId, folderId,
+            className, folders, parentId, folderId, parents,
         } = this.props;
 
         const liFolders = [];
@@ -24,6 +24,7 @@ export default class FolderTree extends React.Component {
                         folder={folder}
                         folders={folders}
                         folderId={folderId}
+                        parents={parents + 1}
                     />))}
             </ul>
         );
@@ -34,11 +35,13 @@ FolderTree.propTypes = {
     className: PropTypes.string,
     folders: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
     parentId: PropTypes.number,
+    parents: PropTypes.number,
     folderId: PropTypes.number,
 };
 
 FolderTree.defaultProps = {
     className: '',
+    parents: 0,
     parentId: null,
     folderId: null,
 };

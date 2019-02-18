@@ -18,12 +18,40 @@
     font-size: 14px;
 
     &:hover {
-        background: $colorMain;
-        color: getTextColor($colorMain);
+        background: $colorGray;
+        color: getTextColor($colorGray);
     }
 }
 
 :local(.Active) {
     background: $colorMain;
     color: getTextColor($colorMain);
+
+    &:hover {
+        background: $colorMain;
+        color: getTextColor($colorMain);
+    }
+}
+
+:local(.Icon) {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+:local(.ArrowIcon) {
+    border: 0;
+    appearance: none;
+    background: transparent;
+    display: inline-block;
+    padding: 0 5px;
+
+    > svg {
+        transition: transform 0.1s linear;
+    }
+}
+
+:local(.ArrowIconDown) {
+    > svg {
+        transform: rotate(90deg);
+    }
 }

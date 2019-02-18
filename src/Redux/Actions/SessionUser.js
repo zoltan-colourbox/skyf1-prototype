@@ -16,6 +16,7 @@ function receiveLogin(userData) {
     return {
         type: RECEIVE_LOGIN,
         userData,
+        isError: false,
         receivedAt: Date.now(),
     };
 }
