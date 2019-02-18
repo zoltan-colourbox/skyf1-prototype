@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FolderTreeLi from 'Containers/FolderTree/Components/FolderTreeLi';
 import Styles from './FolderTree.scss';
-import FolderTreeLi from './Components/FolderTreeLi/FolderTreeLi';
 
 export default class FolderTree extends React.Component {
     render() {

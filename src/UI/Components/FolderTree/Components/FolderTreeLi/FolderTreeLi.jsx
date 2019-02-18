@@ -8,9 +8,6 @@ import FolderTree from '../../FolderTree';
 export default class FolderTreeLi extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            collapsed: false,
-        };
         this.toggleCollapse = this.toggleCollapse.bind(this);
     }
 
@@ -23,14 +20,15 @@ export default class FolderTreeLi extends React.Component {
 
     toggleCollapse(event) {
         event.preventDefault();
-        this.setState((state) => { return { collapsed: !state.collapsed }; });
+        const { setCollapse, folder, collapsed } = this.props;
+        setCollapse(folder.id, !collapsed);
+        // this.setState((state) => { return { collapsed: !state.collapsed }; });
     }
 
     render() {
         const {
-            className, folders, folder, folderId, parents,
+            className, folders, folder, folderId, parents, collapsed,
         } = this.props;
-        const { collapsed } = this.state;
 
         return (
             <li className={[className, Styles.Container].join(' ')}>
@@ -63,6 +61,8 @@ FolderTreeLi.propTypes = {
     folders: PropTypes.array, // eslint-disable-line react/forbid-prop-types
     folderId: PropTypes.number,
     parents: PropTypes.number,
+    collapsed: PropTypes.bool,
+    setCollapse: PropTypes.func,
 };
 
 FolderTreeLi.defaultProps = {
@@ -70,4 +70,6 @@ FolderTreeLi.defaultProps = {
     folders: [],
     folderId: null,
     parents: 0,
+    collapsed: false,
+    setCollapse: () => {},
 };

@@ -9,6 +9,27 @@ export function selectFolder(id) {
     };
 }
 
+export const COLLAPSE_FOLDERS = 'COLLAPSE_FOLDERS';
+export function collapseFolder(folderId, collapse) {
+    return (dispatch, getState) => {
+        const collapsed = getState().folders.collapsed.slice(0); // eslint-disable-line no-case-declarations
+        if (collapse) {
+            if (collapsed.indexOf(folderId) === -1) {
+                collapsed.push(folderId);
+            }
+        } else {
+            const index = collapsed.indexOf(folderId);
+            if (index > -1) {
+                collapsed.splice(index, 1);
+            }
+        }
+        dispatch({
+            type: COLLAPSE_FOLDERS,
+            collapsed,
+        });
+    };
+}
+
 export const REQUEST_FOLDERS = 'REQUEST_FOLDERS';
 function requestFolders() {
     return {
