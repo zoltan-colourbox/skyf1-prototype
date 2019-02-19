@@ -2,7 +2,7 @@ import { createAPI } from 'Factories/API';
 
 export const SELECT_FOLDER = 'SELECT_FOLDER';
 export function selectFolder(id) {
-    const folderId = id === 'root' ? 0 : (id === null ? null : parseInt(id, 0)); // eslint-disable-line no-nested-ternary
+    const folderId = id === 'root' ? 0 : (id === null ? null : parseInt(id, 10)); // eslint-disable-line no-nested-ternary
     return {
         type: SELECT_FOLDER,
         folderId,

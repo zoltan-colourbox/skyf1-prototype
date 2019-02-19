@@ -12,7 +12,7 @@ const PublicRoute = ({ component: Component, ...rest }) => (
                 <Component {...props} />
             ) : (
                 <Redirect to={{
-                    pathname: '/folder/root',
+                    pathname: '/folder',
                     state: { from: props.location },
                 }}
                 />

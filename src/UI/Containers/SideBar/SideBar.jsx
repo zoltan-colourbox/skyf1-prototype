@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SideBar from 'Components/HeaderBar/Components/SideBar/SideBar';
+import SideBar from 'Components/SideBar/SideBar';
 import { fetchFolders } from 'Actions/Folders';
 
 class SideBarContainer extends React.Component {
@@ -11,8 +11,6 @@ class SideBarContainer extends React.Component {
 
     render() {
         const { folders } = this.props;
-        // ... and renders the wrapped component with the fresh data!
-        // Notice that we pass through any additional props
         return <SideBar folders={folders} {...this.props} />;
     }
 }
@@ -27,7 +25,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // dispatching plain actions
         onReload: () => dispatch(fetchFolders()),
         dispatch,
     };

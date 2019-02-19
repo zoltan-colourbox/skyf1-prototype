@@ -7,9 +7,7 @@ export default class Content extends React.Component {
         const { children } = this.props;
         return (
             <div className={Styles.Container}>
-                <div className={Styles.Content}>
-                    {children}
-                </div>
+                {children}
             </div>
         );
     }

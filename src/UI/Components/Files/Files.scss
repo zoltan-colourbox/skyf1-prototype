@@ -1,0 +1,55 @@
+@import 'Globals/Global.scss';
+
+:local(.Container) {
+    @include ScrollContent;
+}
+
+:local(.Content) {
+    padding: 0;
+    position: relative;
+    height: 100%;
+}
+
+:local(.LoadingIcon) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 62px;
+    animation: spin 4s infinite linear;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0%  {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+
+:local(.Files) {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+:local(.File) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 20%;
+    padding: 10px;
+    overflow: hidden;
+
+    @include respond-to(s) {
+        flex-basis: 25%;
+        max-width: auto;
+    }
+    @include respond-to(xs) {
+        flex-basis: 25%;
+        max-width: auto;
+    }
+    @media only screen and (max-width: 639px) {
+        flex-basis: 33.33%;
+        max-width: auto;
+    }
+    @media only screen and (max-width: 419px) {
+        flex-basis: 50%;
+        max-width: auto;
+    }
+}

@@ -17,7 +17,7 @@ export function updateProfileImage(size = 'small') {
     return (dispatch, getState) => {
         const { sessionUser } = getState();
 
-        createAPI(sessionUser.userData.token).profileimage(sessionUser.userData.ownerIdentifier, size)
+        createAPI(sessionUser.userData.token).profileImage(sessionUser.userData.ownerIdentifier, size)
             .then((json) => {
                 dispatch(setProfileImageUrl(json.url));
             })

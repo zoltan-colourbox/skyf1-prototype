@@ -20,7 +20,9 @@ export default class App extends React.Component {
                 <div className={Styles.Container}>
                     <Switch>
                         <PublicRoute path="/" exact component={Login} />
+                        <PrivateRoute path="/folder" exact component={Folder} />
                         <PrivateRoute path="/folder/:id" exact component={Folder} />
+                        <PrivateRoute path="/folder/:id/media/:media_id" exact component={Folder} />
                         <Route path="/about" exact component={About} />
                         <Route component={NotFound} />
                     </Switch>

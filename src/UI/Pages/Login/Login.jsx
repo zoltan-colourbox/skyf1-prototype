@@ -72,7 +72,7 @@ export default class Login extends React.Component {
                 {
                     isSessionUser ? (
                         <Route>
-                            <Redirect to="/folder/root" />
+                            <Redirect to="/folder" />
                         </Route>
                     ) : null
                 }

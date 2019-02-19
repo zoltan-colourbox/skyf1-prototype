@@ -38,8 +38,16 @@ export default class API {
         return this.fetch('/folder');
     }
 
-    profileimage(id, size = 'small') {
+    files(folderIds) {
+        return this.fetch(`/search?folder_ids=${folderIds.join('+')}&return_values=filename+thumbnail_url_ssl+media_id+unique_media_id+media_type+width+height+file_disksize+created`);
+    }
+
+    profileImage(id, size = 'small') {
         return this.fetch(`/user/${id}/profileimage/${size}`);
+    }
+
+    mediaImage(id, size = 'preview') {
+        return this.fetch(`/media/${id}/download/${size}`);
     }
 
     /**

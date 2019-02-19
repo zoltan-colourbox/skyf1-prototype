@@ -8,14 +8,23 @@
 
 :local(.Link) {
     display: block;
-    padding: 3px 10px;
+    padding: 5px 10px;
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: $colorText;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 14px;
+
+    @include respond-to(xs) {
+        font-size: 16px;
+        padding: 10px;
+    }
+    @include respond-to(s) {
+        font-size: 16px;
+        padding: 10px;
+    }
 
     &:hover {
         background: $colorGray;

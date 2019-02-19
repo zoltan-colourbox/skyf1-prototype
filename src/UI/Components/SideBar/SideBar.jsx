@@ -38,17 +38,19 @@ export default class SideBar extends React.Component {
         return (
             <React.Fragment>
                 <div ref={this.container} className={[Styles.Container, visible ? Styles.Visible : null].join(' ')}>
-                    <div className={[Styles.Top].join(' ')}>
-                        <div className={[Styles.Title].join(' ')}>
+                    <div className={Styles.Top}>
+                        <div className={Styles.Title}>
                             Folders
                         </div>
-                        <div className={[Styles.Reload].join(' ')}>
+                        <div className={Styles.Reload}>
                             <button className={[Styles.ReloadButton, isReloading ? Styles.IsReloading : null].join(' ')} type="button" onClick={onReload}>
                                 <FontAwesomeIcon icon="sync-alt" />
                             </button>
                         </div>
                     </div>
-                    <FolderTree folders={folders} folderId={folderId} className={Styles.FolderTree} />
+                    <div className={Styles.Folders}>
+                        <FolderTree folders={folders} folderId={folderId} className={Styles.FolderTree} />
+                    </div>
                 </div>
                 {
                     ReactDOM.createPortal((

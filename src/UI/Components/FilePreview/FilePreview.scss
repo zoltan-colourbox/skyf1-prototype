@@ -1,0 +1,50 @@
+@import 'Globals/Global.scss';
+
+:local(.Container) {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    background: rgba( $colorDark, .6 );
+    z-index: 1000;
+}
+
+:local(.PopUp) {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    top: 30px;
+    right: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+:local(.LoadingIcon) {
+    color: #ffffff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 62px;
+    animation: spin 4s infinite linear;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0%  {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+
+:local(.Close) {
+    position: absolute;
+    line-height: 0;
+    right: 15px;
+    top: 15px;
+    color: #ffffff;
+    font-weight: normal;
+    background: transparent;
+    appearance: none;
+    border: 0;
+    font-size: 48px;
+}

@@ -1,0 +1,45 @@
+@import 'Globals/Global.scss';
+
+:local(.Container) {
+    :local(.Content) {
+        &:hover {
+            background: $colorGray;
+        }
+    }
+}
+
+:local(.Content) {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+}
+
+:local(.ContentInner) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+:local(.Icon) {
+    flex-grow: 1;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 10px;
+}
+
+:local(.Title) {
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 14px;
+    color: $colorText;
+    padding: 5px;
+}

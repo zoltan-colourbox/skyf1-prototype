@@ -1,0 +1,69 @@
+@import 'Globals/Global.scss';
+
+:local(.Content) {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+:local(.Top) {
+    display: flex;
+    height: 27px;
+    align-items: center;
+    border-bottom: 1px solid $colorGray;
+}
+
+:local(.Files) {
+    flex: 1;
+}
+
+:local(.Breadcrumb) {
+    &:after {
+        content: '>';
+        color: $colorDark;
+        padding: 0 5px; 
+        font-size: 12px;
+    }
+}
+
+:local(.Title) {
+    flex: 1;
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    :local(.Breadcrumb):last-child {
+        &:after {
+            display: none;
+        }
+    }
+}
+
+:local(.Reload) {
+    text-align: right;
+}
+
+:local(.ReloadButton) {
+    display: inline-block;
+    border: 0px;
+    background: transparent;
+    color: $colorMain;
+    font-size: 16px;
+}
+
+:local(.IsReloading) {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0%  {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}   
+}
+

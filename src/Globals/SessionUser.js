@@ -20,34 +20,3 @@ export const setStoredUserDataProfileImageUrl = (url) => {
     userData.profileImageUrl = url;
     setStoredUserData(userData);
 };
-
-/* Profile / Account
-updateProfileImageUrl(size = 'small') {
-    return new Promise((resolve, reject) => {
-        this.getProfileImageUrl(size)
-            .then((responseImage) => {
-                this.setUserData(Object.assign(this.getUserData(), {
-                    profileImageUrl: responseImage.url,
-                }));
-                resolve(responseImage);
-            })
-            .catch((responseImage) => {
-                reject(responseImage);
-            });
-    });
-}
-
-getProfileImageUrl(size = 'small') {
-    return this.is ? API.profileimage(this.id, size) : new Promise((resolve, reject) => {
-        reject(new Error('No user id. Can\'t get profile image url.'));
-    });
-}
-
-if (SessionUser.profileImageUrl) {
-    const image = new Image();
-    image.onerror = () => {
-        SessionUser.updateProfileImageUrl();
-    };
-    image.src = SessionUser.profileImageUrl;
-}
-*/
