@@ -39,12 +39,13 @@
 :local(.Close) {
     position: absolute;
     line-height: 0;
-    right: 15px;
-    top: 15px;
+    right: 5px;
+    top: 5px;
     color: #ffffff;
     font-weight: normal;
     background: transparent;
     appearance: none;
     border: 0;
-    font-size: 48px;
+    font-size: 28px;
+    z-index: 1000;
 }

@@ -12,7 +12,6 @@ class FilePreview extends React.Component {
 
         this.state = {
             imgUrl: null,
-            loading: true,
         };
 
         this.close = this.close.bind(this);
@@ -22,16 +21,36 @@ class FilePreview extends React.Component {
         this.getPreviewUrl();
     }
 
-    componentDidUpdate() {
-        this.getPreviewUrl();
-    }
-
     getPreviewUrl() {
         const { mediaId, APIToken } = this.props;
         createAPI(APIToken)
             .mediaImage(mediaId)
-            .then((json) => {
-                console.log(json);
+            .then(response => response.body)
+            .then((body) => {
+                const reader = body.getReader();
+                return new ReadableStream({
+                    start(controller) {
+                        function pump() {
+                            return reader.read().then(({ done, value }) => {
+                                // When no more data needs to be consumed, close the stream
+                                if (done) {
+                                    controller.close();
+                                    return;
+                                }
+                                // Enqueue the next data chunk into our target stream
+                                controller.enqueue(value);
+                                return pump(); // eslint-disable-line consistent-return
+                            });
+                        }
+                        return pump();
+                    },
+                });
+            })
+            .then(stream => new Response(stream))
+            .then(response => response.blob())
+            .then(blob => URL.createObjectURL(blob))
+            .then((imgUrl) => {
+                this.setState({ imgUrl });
             });
     }
 
@@ -41,14 +60,14 @@ class FilePreview extends React.Component {
     }
 
     render() {
-        const { imgUrl, loading } = this.state;
+        const { imgUrl } = this.state;
 
         return ReactDOM.createPortal((
             <div className={Styles.Container}>
                 <button type="button" className={Styles.Close} onClick={this.close}>
                     <FontAwesomeIcon icon="times" />
                 </button>
-                {loading ? <FontAwesomeIcon icon="sync-alt" className={Styles.LoadingIcon} /> : <div className={Styles.PopUp} style={{ backgroundImage: `url('${imgUrl}')` }} />}
+                {!imgUrl ? <FontAwesomeIcon icon="sync-alt" className={Styles.LoadingIcon} /> : <div className={Styles.PopUp} style={{ backgroundImage: `url('${imgUrl}')` }} />}
             </div>
         ), document.body);
     }

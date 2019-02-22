@@ -7,6 +7,7 @@ import SideBar from 'Containers/SideBar/SideBar';
 import Files from 'Containers/Files/Files';
 import FilePreview from 'Components/FilePreview/FilePreview';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { capturePicture } from 'Globals/Camera';
 import Styles from './Folder.scss';
 
 export default class Folder extends React.Component {
@@ -14,6 +15,7 @@ export default class Folder extends React.Component {
         super(props);
 
         this.closeSideBar = this.closeSideBar.bind(this);
+        this.capturePicture = this.capturePicture.bind(this);
     }
 
     getFolderBreadcrumbs() {
@@ -35,6 +37,12 @@ export default class Folder extends React.Component {
         return folderPath.reverse();
     }
 
+    capturePicture() {
+        capturePicture().then((imgData) => {
+            console.log(imgData);
+        });
+    }
+
     closeSideBar() {
         const { setSideBarVisibility } = this.props;
         setSideBarVisibility(false);
@@ -43,7 +51,7 @@ export default class Folder extends React.Component {
     render() {
         const {
             sideBarVisibile, isReloading, onReload, selectedFile,
-            APIToken,
+            APIToken, selectedFolder,
         } = this.props;
 
         return (
@@ -69,6 +77,11 @@ export default class Folder extends React.Component {
                             </div>
                         </div>
                         <Files className={Styles.Files} />
+                        {selectedFolder ? (
+                            <button type="button" className={Styles.Camera} onClick={this.capturePicture}>
+                                <FontAwesomeIcon icon="camera-retro" />
+                            </button>
+                        ) : null}
                     </div>
                 </Content>
                 {
